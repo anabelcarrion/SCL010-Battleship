@@ -1,0 +1,20 @@
+#gameBoard {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+  
+.square {
+  border: 1px solid black;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  }
+  
+.square:hover {
+   background: #eee; 
+}
+  
+ 
