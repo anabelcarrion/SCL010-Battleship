@@ -18,7 +18,7 @@ export default class GameBoard extends Component {
         for (let h=0; h<tableHeight; h++){
             let row =[];
             for(let w=0; w<tableWidth; w++){
-                row[w]={h,w};
+                row[w]={};
             }
             table[h]=row;
         }
