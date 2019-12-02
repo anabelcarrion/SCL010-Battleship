@@ -2,7 +2,7 @@ import React, {useEffect, useState } from 'react';
 import './GameBoard.css';
 import { func } from 'prop-types';
 
-//creando el objeto con los valores que tendran las piezas del juego  
+//creando los objeto con los valores que tendran las piezas del juego(esta data luego se guardara en firebase)  
 let guidePiece={
     name:"",
     size: "",
@@ -30,7 +30,7 @@ let  piece4={
 }
     
 //hooks
- export function usePieceState(){
+export function usePieceState(){
 
     const [selectedPiece, setSelectedPiece]=useState({
         name:"",
@@ -46,6 +46,8 @@ let  piece4={
     return selectedPiece;
 }
 
+//funcion que asigna los valores de las piezas
+
 function selectPiece (piece){
     guidePiece=piece;
  console.log(guidePiece)
@@ -53,8 +55,8 @@ function selectPiece (piece){
 
 export default  function Pieces (){ 
     const[pieceState,setPieceState] = useState(guidePiece);
-    return (
 
+    return (
         <div>
             <p>esta seleccionado la pieza: {pieceState.name}</p>
             <p>orientacion:{pieceState.orientation}</p>
