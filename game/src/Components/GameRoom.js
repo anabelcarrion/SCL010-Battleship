@@ -5,7 +5,7 @@ import GameBoard2 from './GameBoard2';
 
 function GameRooms() {
   return (
-    <div className="App">
+    <div>
      <h1>Estamos en la sala de juego</h1>
     <GameBoard1/>
     <GameBoard2/>
