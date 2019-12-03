@@ -4,8 +4,28 @@
   flex-wrap: wrap;
 }
 
+.occupiedCell{
+  background-color:#999999;
+}
+
+.emptyCell{
+  background-color:#ffffff;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
 .MuiTableCell-root {
   padding: 10px !important;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 .square {
