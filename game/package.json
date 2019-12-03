@@ -3,11 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@material-ui/core": "^4.7.0",
-=======
     "@material-ui/core": "^4.7.1",
->>>>>>> 58f35b2995e198cce2127b42e3a48c7c65319de9
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0"
