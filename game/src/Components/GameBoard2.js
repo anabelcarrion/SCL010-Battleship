@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { usePieceState } from './Pieces';
-
+//import { usePieceState } from './Pieces';
 import './GameBoard.css';
-//import Pieces from './Components/Pieces';
+import Pieces from './Pieces';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -11,17 +10,17 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
 // tablero
-const GameBoard = () => {
+const GameBoard2 = () => {
   // fijar tamaño de tabla
   let tableHeight = 10;
-  let tableWidth = 10;
+  let tableWidth =10;
   let table = [];
 
   // crear la tabla
   for (let h = 0; h < tableHeight; h++) {
     let row = [];
     for (let w = 0; w < tableWidth; w++) {
-      row[w] = { state: 'false', x: w, y: h };
+      row[w] = { state:false, x: w, y: h };
     }
     table[h] = row;
   }
@@ -29,11 +28,19 @@ const GameBoard = () => {
   // estado
   const [tableState, setTableState] = useState(table);
 
+
+  let pieceSelected = {
+    name:'perro1',
+    size:3,
+    orientation: 'vertical'
+  };
+
   // marcar una celda de la tabla y cambiarla de estado
   const setPiece = (x, y) => {
     let newTable = tableState.map(x => x);
-    newTable[x][y].state = 'true';
-    console.log(tableState);
+    for (let i=0; i<pieceSelected.size && (x+i)<newTable.length; i++){
+      newTable[x+i][y].state = true;
+    }
     return newTable;
   };
 
@@ -43,6 +50,7 @@ const GameBoard = () => {
   return (
     <div id='gameBoard'>
       <div id='boardPlayer1'>
+       <div><Pieces/></div>
         <Paper>
           <Table id='boardPlayer1'>
             <TableBody>
@@ -52,12 +60,11 @@ const GameBoard = () => {
                     <TableCell
                       id={setID(position)}
                       data={[position.x, position.y]}
-                      className='square'
+                      className={(tableState[position.x][position.y].state ? "occupiedCell" : "emptyCell")}
                       onClick={() =>
                         setTableState(setPiece(position.x, position.y))
                       }
                     >
-                      {tableState[position.x][position.y].state}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -70,4 +77,4 @@ const GameBoard = () => {
   );
 };
 
-export default GameBoard;
+export default GameBoard2;
