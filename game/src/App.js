@@ -1,6 +1,5 @@
 import React from 'react';
 import GameBoard from './Components/GameBoard';
-import Pieces from './Components/Pieces';
 import './App.css';
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
       </nav>
       <section>
         <GameBoard/>
-        <Pieces/>
       </section>
     </div>
   );

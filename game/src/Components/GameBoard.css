@@ -1,5 +1,4 @@
-#gameBoard {
-  align-items: center;
+.container-board {
   display: flex;
   flex-wrap: wrap;
 }
@@ -17,4 +16,13 @@
    background: #eee; 
 }
   
- 
+#boardPlayer1 {
+  padding: 0px 30px;
+}
+
+.container-pieces {
+  padding: 0px 30px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

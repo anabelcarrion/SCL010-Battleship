@@ -57,10 +57,10 @@ export default  function Pieces (){
     const[pieceState,setPieceState] = useState(guidePiece);
 
     return (
-        <div>
-            <p>esta seleccionado la pieza: {pieceState.name}</p>
-            <p>orientacion:{pieceState.orientation}</p>
-            <p>tamaño:{pieceState.size}</p>
+        <div className="container-pieces">
+            <p>Pieza: {pieceState.name}</p>
+            <p>Orientacion:{pieceState.orientation}</p>
+            <p>Tamaño:{pieceState.size}</p>
             <button onClick={()=>{selectPiece(piece1);setPieceState(piece1)}}>perro1</button> 
             <button onClick={()=>{selectPiece(piece2);setPieceState(piece2)}}>perro2</button>
             <button onClick={()=>{selectPiece(piece3);setPieceState(piece3)}}>perro3</button>

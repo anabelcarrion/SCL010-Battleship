@@ -1,5 +1,5 @@
 import React, {useState } from 'react';
-import { usePieceState } from './Pieces';
+import Pieces from './Pieces';
 
 import './GameBoard.css';
 //import Pieces from './Components/Pieces';
@@ -38,23 +38,24 @@ export default  function GameBoard () {
         }
     
         return (
-            <div id="gameBoard">
-              <div id="boardPlayer1">  
-                <Paper >
-                    <Table id="boardPlayer1">
-                        <TableBody>
-                            {tableState.map(row => (
-                                <TableRow>
-                                    {row.map(position => ( 
-                                        <TableCell className="square" onClick={()=>setTableState(setPiece(position.x,position.y))}>
-                                            {tableState[position.x][position.y].state}</TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Paper>
-              </div>
+            <div className="container-board">
+                <Pieces/>
+                <div id="boardPlayer1">
+                    <Paper>
+                        <Table id="boardPlayer1">
+                            <TableBody>
+                                {tableState.map(row => (
+                                    <TableRow>
+                                        {row.map(position => ( 
+                                            <TableCell className="square" onClick={()=>setTableState(setPiece(position.x,position.y))}>
+                                                {tableState[position.x][position.y].state}</TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Paper>    
+                </div>
             </div> 
         )
-       }
+}
