@@ -31,7 +31,7 @@ const GameBoard1 = () => {
 
   let pieceSelected = {
     name:'perro1',
-    size:3,
+    size:2,
     orientation: 'vertical'
   };
 
