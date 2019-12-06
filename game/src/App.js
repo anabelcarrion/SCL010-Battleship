@@ -1,44 +1,38 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 
-//importando material-iu
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Grid from '@material-ui/core/Grid';
 
-//importando los componentes
-import Register from './Components/Register';
-import GameRoom from './Components/GameRoom';
-
-function LinkTab(props) {
-  return ( 
-    <Tab component={Link} {...props}/>
-  );
-}
+//importando las vistas
+import StartGame from './Views/StartGame';
+import PlacingPieces from './Views/PlacingPieces';
+import Game from './Views/Game';
+import EndGame from './Views/EndGame';
  
 const App=()=> {
   return (
-    <div>
-    <Grid container spacing={12}>
-     <Router>
+    <Router>
       <div>
-      <Grid item xs={12}>
-      <AppBar position="static">
-        <Tabs>
-          <LinkTab label="registro" to="/registro"/>
-          <LinkTab label="Sala de Juego" to="/sala-de-juego"/>
-        </Tabs>
-      </AppBar>
-      </Grid>
-        <Route path="/registro" component={Register}/>
-        <Route path="/sala-de-juego" component={GameRoom}/>
-      </div>
-    </Router>
-      </Grid>
-      </div>
+        <Redirect
+            exact
+            from="/"
+            to="/StarGame" />
+          <Switch>
+            <Route
+              path="/StarGame"
+              component={StartGame} />
+            <Route
+              path="/Game"
+              component={Game} />
+               <Route
+              path="/PlacingPieces"
+              component={PlacingPieces} />
+               <Route
+              path="/EndGame"
+              component={EndGame} />
+          </Switch>
+        </div>
+      </Router>
   );
 }
 export default App;
