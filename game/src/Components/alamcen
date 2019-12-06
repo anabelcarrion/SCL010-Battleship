@@ -1,0 +1,7 @@
+   <Router>
+        <Tabs>
+            <LinkTab label="crear sala" to={"/GameRoom"}/>
+        </Tabs> 
+
+        <Route path="/GameRoom" component={GameRoom}/>
+    </Router>
