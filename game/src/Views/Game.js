@@ -9,13 +9,14 @@ function Game() {
   return (
     <div>
      <Link to="/PlacingPieces">Volver</Link>
-     <Link to="/EndGame">Jugar</Link>
+     
      <h1>Estamos en la sala de juego</h1>
     <GameBoard1/>
-    <GameBoard2/>
     <Button variant="outlined">
-        Jugar
+        turno
     </Button>
+    <GameBoard2/>
+    <Link to="/EndGame">Jugar</Link>
     </div>
   );
 }
