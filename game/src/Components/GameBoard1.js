@@ -9,8 +9,21 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
+//creando context
+export const GameBoardPaintContext=React.createContext();
+
 // tablero
+
 const GameBoard1 = () => {
+
+  let emptyPiece = {
+    name: '',
+    img:'',
+    sizeHorizontal:0,
+    sizeVertical:0,
+    orientation: ''   
+  }  
+
   // fijar tamaño de tabla
   let tableHeight = 10;
   let tableWidth =10;
@@ -27,7 +40,7 @@ const GameBoard1 = () => {
 
   // estado
   const [tableState, setTableState] = useState(table);
-
+  const [selectedPiece, setSelectedPiece] = useState(emptyPiece);
 
   let pieceSelected = {
     name:'perro1',
@@ -38,8 +51,17 @@ const GameBoard1 = () => {
   // marcar una celda de la tabla y cambiarla de estado
   const setPiece = (x, y) => {
     let newTable = tableState.map(x => x);
-    for (let i=0; i<pieceSelected.size && (x+i)<newTable.length; i++){
-      newTable[x+i][y].state = true;
+    let sizeHorizontal = selectedPiece.sizeHorizontal;
+    let sizeVertical = selectedPiece.sizeVertical;
+    if(selectedPiece.orientation === "vertical"){
+      sizeHorizontal = selectedPiece.sizeVertical;
+      sizeVertical = selectedPiece.sizeHorizontal;
+    }
+
+    for (let i=0; i<sizeHorizontal && (x+i)<newTable.length; i++){
+      for (let j=0; j<sizeVertical && (y+j)<newTable.length; j++){
+        newTable[x+i][y+j].state = true;
+      }
     }
     return newTable;
   };
@@ -47,10 +69,17 @@ const GameBoard1 = () => {
   const setID = position => {
     return parseInt(position.x.toString() + position.y.toString()) + 1;
   };
+
+  const gameBoardState = {selectedPiece,setSelectedPiece};
+
   return (
     <div id='gameBoard'>
       <div id='boardPlayer1'>
-       <div><Pieces/></div>
+       <div>
+          <GameBoardPaintContext.Provider value={gameBoardState}>
+            <Pieces/>
+          </GameBoardPaintContext.Provider>
+        </div>
         <Paper>
           <Table id='boardPlayer1'>
             <TableBody>
