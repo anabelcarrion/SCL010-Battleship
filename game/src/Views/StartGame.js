@@ -15,7 +15,7 @@ const StartGame  = () => {
                 id="nombre"
                 label="Nombre del jugador" 
                 variant="outlined"/> 
-         <Link to="/PlacingPieces">Crear Partida</Link>
+         <Link to="/PlacingPieces">Comenzar Partida</Link>
            
         </Grid>       
     </div>  
