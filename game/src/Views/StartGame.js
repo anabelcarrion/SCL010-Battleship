@@ -26,6 +26,7 @@ const StartGame  = () => {
   return (
     <div>
         <Grid item xs={4}>
+
           <Input 
           type="text" 
           placeholder="Ingresa tu nombre"

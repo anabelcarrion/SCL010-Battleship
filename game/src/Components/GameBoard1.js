@@ -8,6 +8,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import ToggleButton from '@material-ui/lab/ToggleButton';
 
 //creando context
 export const GameBoardPaintContext=React.createContext();
@@ -29,7 +30,7 @@ const GameBoard1 = () => {
   let tableWidth =10;
   let table = [];
 
-  // crear la tabla
+  // creando la tabla
   for (let h = 0; h < tableHeight; h++) {
     let row = [];
     for (let w = 0; w < tableWidth; w++) {
@@ -38,9 +39,13 @@ const GameBoard1 = () => {
     table[h] = row;
   }
 
-  // estado
+  // creando los estados para la tabla y las pieza seleccionada
+  //tabla
   const [tableState, setTableState] = useState(table);
+  //piezas
   const [selectedPiece, setSelectedPiece] = useState(emptyPiece);
+  //Toggle-Buton
+  const [isRotated, setIsRotated] = useState(false);
 
   let pieceSelected = {
     name:'perro1',
@@ -50,16 +55,27 @@ const GameBoard1 = () => {
 
   // marcar una celda de la tabla y cambiarla de estado
   const setPiece = (x, y) => {
-    let newTable = tableState.map(x => x);
+    let newTable = tableState.map( x => {
+       return x.map( y => {
+         return { ...y} 
+        })
+      });
     let sizeHorizontal = selectedPiece.sizeHorizontal;
     let sizeVertical = selectedPiece.sizeVertical;
-    if(selectedPiece.orientation === "vertical"){
+    if(isRotated){
       sizeHorizontal = selectedPiece.sizeVertical;
       sizeVertical = selectedPiece.sizeHorizontal;
     }
-
-    for (let i=0; i<sizeHorizontal && (x+i)<newTable.length; i++){
-      for (let j=0; j<sizeVertical && (y+j)<newTable.length; j++){
+    for (let i=0; i<sizeHorizontal; i++){
+      for (let j=0; j<sizeVertical; j++){
+        if((x+i)>=newTable.length || (y+j)>=newTable.length){
+          alert("no hay espacio soficiente para colocar esta pieza");
+          return tableState;
+        }
+        if(tableState[x+i][y+j].state){
+          alert("no se puede incertar la pieza en donde ya existe una pieza");
+        return tableState;
+        }
         newTable[x+i][y+j].state = true;
       }
     }
@@ -79,6 +95,13 @@ const GameBoard1 = () => {
           <GameBoardPaintContext.Provider value={gameBoardState}>
             <Pieces/>
           </GameBoardPaintContext.Provider>
+          <ToggleButton
+          value="check"
+          selected={isRotated}
+           onChange={() => {
+            setIsRotated(!isRotated);
+          }}>Rotar
+        </ToggleButton>
         </div>
         <Paper>
           <Table id='boardPlayer1'>
