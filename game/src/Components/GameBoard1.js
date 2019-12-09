@@ -38,9 +38,15 @@ const GameBoard1 = () => {
     table[h] = row;
   }
 
-  // creando los estados para la tabla y las piez seleccionada
+  // estado
   const [tableState, setTableState] = useState(table);
   const [selectedPiece, setSelectedPiece] = useState(emptyPiece);
+
+  let pieceSelected = {
+    name:'perro1',
+    size:2,
+    orientation: 'vertical'
+  };
 
   // marcar una celda de la tabla y cambiarla de estado
   const setPiece = (x, y) => {

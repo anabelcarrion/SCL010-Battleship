@@ -13,6 +13,8 @@ function EndGame() {
      <Button variant="outlined">
         Salir
     </Button>
+
+  
     </div>
   );
 }
