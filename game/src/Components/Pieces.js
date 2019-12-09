@@ -2,9 +2,13 @@ import React, { Component, useEffect, useState, useContext } from 'react';
 import './GameBoard.css';
 import {GameBoardPaintContext} from './GameBoard1';
 
-// crear los objetos con los valores que tendrán las piezas del juego
-// (esta data luego se guardara en firebase)
-
+// crear los objetos con los valores que tendrán las piezas del juego (esta data luego se guardara en firebase)
+let guidePiece = {
+  name: '',
+  img:'',
+  size: '',
+  orientation: ''
+};
 let piece1 = {
   name: '1 cuadrado',
   img:'',
@@ -55,10 +59,14 @@ let piece7 = {
   orientation: 'vertical'
 };
 
+// asignar valores a las piezas
+
+const selectPiece = piece => {
+  guidePiece = piece;
+  console.log(guidePiece);
+};
 
 const Pieces = () => {
-  
-  //usando el contexto que se guardo en GameBord
   const {selectedPiece,setSelectedPiece} = useContext(GameBoardPaintContext);
 
   
