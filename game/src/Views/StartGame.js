@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {Link} from "react-router-dom";
-import Grid from '@material-ui/core/Grid';
 import { Button, Input } from '@material-ui/core';
 import firebase from '../data/firebase';
 
@@ -21,25 +20,21 @@ const StartGame  = () => {
     .catch(function(error) {
         console.error("Error adding document: ", error);
     });
-    console.log('Hola jugador:', userName);
   }
 
   return (
-    <div>
-        <Grid item xs={4}>
+    <section id="start-game">
           <Input 
           type="text" 
           placeholder="Ingresa tu nombre"
           onChange={(event) => setUserName(event.target.value)}
           required={true}>
           </Input>
-          <Button
+            <Link to="/PlacingPieces"><Button
           // onClick={() => sentToFirebase(userName)}
-          >
-            <Link to="/PlacingPieces">Crear Partida</Link>
-          </Button>
-        </Grid>       
-    </div>  
+          >Comenzar a jugar</Button></Link>
+		 <a><img height="100px" src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img></a>   
+    </section>   
   );
 };
 

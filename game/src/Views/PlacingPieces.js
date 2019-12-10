@@ -7,7 +7,7 @@ function PlacingPieces() {
   return (
     <div>
      <h1>Coloca las perritos en el tablero de juego</h1>
-     <Link to="/StarGame">Volver</Link> 
+     <Link to="/StartGame">Volver</Link> 
      <GameBoard1/> 
      <Link to="/Game">Jugar</Link>   
     </div>
