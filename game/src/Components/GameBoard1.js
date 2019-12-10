@@ -48,6 +48,12 @@ const GameBoard1 = () => {
   //Toggle-Buton
   const [isRotated, setIsRotated] = useState(false);
 
+  let pieceSelected = {
+    name:'perro1',
+    size:2,
+    orientation: 'vertical'
+  };
+
   // marcar una celda de la tabla y cambiarla de estado
   const setPiece = (x, y) => {
     let newTable = tableState.map( x => {

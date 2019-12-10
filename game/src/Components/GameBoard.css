@@ -1,5 +1,4 @@
-#gameBoard {
-  align-items: center;
+.container-board {
   display: flex;
   flex-wrap: wrap;
 }
