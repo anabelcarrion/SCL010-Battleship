@@ -14,8 +14,9 @@ const StartGame  = () => {
     db.collection("game").add({
       nombre1: userName,
     })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
+    .then(function() {
+      window.location.href = 'whatsapp://send?text=Puedes bañar a estos perritos más rápido que yo? Únete a mi juego'
+        // console.log("Document written with ID: ", docRef.id);
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -26,7 +27,6 @@ const StartGame  = () => {
   return (
     <div>
         <Grid item xs={4}>
-
           <Input 
           type="text" 
           placeholder="Ingresa tu nombre"
@@ -34,7 +34,8 @@ const StartGame  = () => {
           required={true}>
           </Input>
           <Button
-          onClick={() => sentToFirebase(userName)}>
+          // onClick={() => sentToFirebase(userName)}
+          >
             <Link to="/PlacingPieces">Crear Partida</Link>
           </Button>
         </Grid>       
