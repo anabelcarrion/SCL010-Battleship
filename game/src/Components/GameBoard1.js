@@ -22,7 +22,8 @@ const GameBoard1 = () => {
     img:'',
     sizeHorizontal:0,
     sizeVertical:0,
-    orientation: ''   
+    orientation: '',
+    isPlaced:false   
   }  
 
   // fijar tamaño de tabla
@@ -71,8 +72,10 @@ const GameBoard1 = () => {
         return tableState;
         }
         newTable[x+i][y+j].state = true;
+
       }
     }
+    setSelectedPiece(emptyPiece);
     return newTable;
   };
 

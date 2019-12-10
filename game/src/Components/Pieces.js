@@ -1,6 +1,8 @@
 import React, { Component, useEffect, useState, useContext } from 'react';
 import './GameBoard.css';
 import {GameBoardPaintContext} from './GameBoard1';
+import Button from '@material-ui/core/Button';
+
 
 // crear los objetos con los valores que tendrán las piezas del juego
 // (esta data luego se guardara en firebase)
@@ -10,49 +12,56 @@ let piece1 = {
   img:'',
   sizeHorizontal:1,
   sizeVertical:1,
-  orientation: 'vertical'
+  orientation: 'vertical',
+  isPlaced:false 
 };
 let piece2 = {
   name: '1 cuadrado',
   img:'',
   sizeHorizontal:1,
   sizeVertical:1,
-  orientation: 'vertical'
+  orientation: 'vertical',
+  isPlaced:false 
 };
 let piece3 = {
   name: '2 cuadrados',
   img:'',
   sizeHorizontal:1,
   sizeVertical:2,
-  orientation: 'vertical'
+  orientation: 'vertical',
+  isPlaced:false 
 };
 let piece4 = {
   name: '2 cuadrados',
   img:'',
   sizeHorizontal:1,
   sizeVertical:2,
-  orientation: 'vertical'
+  orientation: 'vertical',
+  isPlaced:false 
 };
 let piece5 = {
   name: '3 cuadrados',
   img:'',
   sizeHorizontal:1,
   sizeVertical:3,
-  orientation: 'vertical'
+  orientation: 'vertical',
+  isPlaced:false 
 };
 let piece6 = {
   name: '4 cuadrados',
   img:'',
   sizeHorizontal:2,
   sizeVertical:2,
-  orientation: 'vertical'
+  orientation: 'vertical',
+  isPlaced:false
 };
 let piece7 = {
   name: '4 cuadrados',
   img:'',
   sizeHorizontal:2,
   sizeVertical:2,
-  orientation: 'vertical'
+  orientation: 'vertical',
+  isPlaced:false
 };
 
 
@@ -68,34 +77,40 @@ const Pieces = () => {
     <p>orientacion:{selectedPiece.orientation}</p>
     <p>tamaño:{selectedPiece.sizeHorizontal}x{selectedPiece.sizeVertical}</p>
     
-
-    <button onClick={() => {
-          setSelectedPiece(piece1);        
-        }}>perro1</button>
+    <Button disabled={piece1.isPlaced} onClick={() => {
+          setSelectedPiece(piece1);   
+          piece1.isPlaced=true;     
+        }}>perro1</Button>
       
-      <button onClick={() => {
-          setSelectedPiece(piece2);        
-        }}>perro2</button>
+      <Button disabled={piece2.isPlaced}  onClick={() => {
+          setSelectedPiece(piece2); 
+          piece2.isPlaced=true;        
+        }}>perro2</Button>
 
-      <button onClick={() => {
-          setSelectedPiece(piece3);        
-        }}>perro3</button>
+      <Button disabled={piece3.isPlaced}  onClick={() => {
+          setSelectedPiece(piece3); 
+          piece3.isPlaced=true;        
+        }}>perro3</Button>
 
-      <button onClick={() => {
-          setSelectedPiece(piece4);        
-        }}>perro4 </button>
+      <Button disabled={piece4.isPlaced}  onClick={() => {
+          setSelectedPiece(piece4); 
+          piece4.isPlaced=true;        
+        }}>perro4 </Button>
 
-       <button onClick={() => {
-          setSelectedPiece(piece5);        
-        }}>perro5 </button>
+       <Button disabled={piece5.isPlaced}  onClick={() => {
+          setSelectedPiece(piece5); 
+          piece5.isPlaced=true;       
+        }}>perro5 </Button>
         
-        <button onClick={() => {
-          setSelectedPiece(piece6);        
-        }}>perro6 </button>
+        <Button disabled={piece6.isPlaced}  onClick={() => {
+          setSelectedPiece(piece6);
+          piece6.isPlaced=true;         
+        }}>perro6 </Button>
 
-          <button onClick={() => {
-          setSelectedPiece(piece7);        
-        }}>perro7 </button>
+        <Button disabled={piece7.isPlaced}  onClick={() => {
+          setSelectedPiece(piece7); 
+          piece7.isPlaced=true;        
+        }}>perro7 </Button>
         
     </div>
   );
