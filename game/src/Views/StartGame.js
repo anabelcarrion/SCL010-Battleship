@@ -24,21 +24,17 @@ const StartGame  = () => {
   }
 
   return (
-    <div>
-        <Grid item xs={4}>
-
+    <section id="start-game">
           <Input 
           type="text" 
           placeholder="Ingresa tu nombre"
           onChange={(event) => setUserName(event.target.value)}
           required={true}>
           </Input>
-          <Button
-          onClick={() => sentToFirebase(userName)}>
-            <Link to="/PlacingPieces">Crear Partida</Link>
-          </Button>
-        </Grid>       
-    </div>  
+            <Link to="/PlacingPieces"><Button
+          onClick={() => sentToFirebase(userName)}>Crear Partida</Button></Link>
+		 <a><img height="100px" src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img></a>   
+    </section>   
   );
 };
 
