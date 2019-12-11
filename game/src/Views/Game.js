@@ -6,6 +6,7 @@ import GameBoard2 from '../Components/GameBoard2';
 
 
 function Game() {
+
   return (
     <div>
      <Link to="/PlacingPieces">Volver</Link>

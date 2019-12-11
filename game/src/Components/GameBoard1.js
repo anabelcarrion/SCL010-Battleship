@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 //import { usePieceState } from './Pieces';
 import './GameBoard.css';
 import Pieces from './Pieces';
+import firebase from '../data/firebase'
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -69,14 +70,16 @@ const GameBoard1 = () => {
     for (let i=0; i<sizeHorizontal; i++){
       for (let j=0; j<sizeVertical; j++){
         if((x+i)>=newTable.length || (y+j)>=newTable.length){
-          alert("no hay espacio soficiente para colocar esta pieza");
+          alert("No hay espacio suficiente para colocar esta pieza");
           return tableState;
         }
         if(tableState[x+i][y+j].state){
-          alert("no se puede incertar la pieza en donde ya existe una pieza");
+          alert("No se puede insertar la pieza porque ya existe una pieza en esta posición");
         return tableState;
         }
         newTable[x+i][y+j].state = true;
+        //Enviando tabla con las piezas montadas a localstorage
+        localStorage.setItem('table', JSON.stringify(newTable))
       }
     }
     return newTable;
@@ -128,5 +131,4 @@ const GameBoard1 = () => {
     </div>
   );
 };
-
 export default GameBoard1;
