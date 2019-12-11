@@ -4,29 +4,27 @@ import {Link} from "react-router-dom";
 import { Button } from '@material-ui/core';
 import firebase from '../data/firebase'
 
+export const PlacingPiecesContext=React.createContext();
+
+
 function PlacingPieces() {
 
     //Variable que guarda el id del doc
     let docRefGamer;
+    const [piecesToSave,setPiecesToSave] = React.useState([]);
     
     // función enviar nombre y piezas seleccionadas a firebase
     const sentToFirebase = () => {
+      console.log(piecesToSave);
       const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
       const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
+
+
 
       const db = firebase.firestore();
       db.collection("game").add({
         name1: getNameFromLocalStorage,
-        0: getTableFromLocalStorage[0],
-        1: getTableFromLocalStorage[1],
-        2: getTableFromLocalStorage[2],
-        3: getTableFromLocalStorage[3],
-        4: getTableFromLocalStorage[4],
-        5: getTableFromLocalStorage[5],
-        6: getTableFromLocalStorage[6],
-        7: getTableFromLocalStorage[7],
-        8: getTableFromLocalStorage[8],
-        9: getTableFromLocalStorage[9] 
+        pieces:piecesToSave
       })
       .then(function(docRef) {
         docRefGamer = docRef.id;
@@ -39,11 +37,15 @@ function PlacingPieces() {
       })
     }
   
+  let piecesToSaveState = {piecesToSave,setPiecesToSave};  
+
   return (
     <div>
      <h1>Coloca las perritos en el tablero de juego</h1>
      <Link to="/StartGame">Volver</Link> 
-     <GameBoard1/> 
+     <PlacingPiecesContext.Provider value={piecesToSaveState}>
+        <GameBoard1/>
+     </PlacingPiecesContext.Provider> 
      <Button
       onClick={() => sentToFirebase()}
       >
