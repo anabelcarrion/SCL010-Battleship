@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 //import { usePieceState } from './Pieces';
 import './GameBoard.css';
-import Pieces from './Pieces';
+import ShowPieces from './Pieces';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,11 +10,72 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 
-//creando context
+//creando context para GameBorad
 export const GameBoardPaintContext=React.createContext();
+//creando context para piezas
+export const PiecesContext=React.createContext();
+// crear los objetos con los valores que tendrán las piezas del juego
+let pieces={
+  dog1:{
+    name: 'dog1',
+    img:'',
+    sizeHorizontal:1,
+    sizeVertical:1,
+    orientation: 'vertical',
+    isPlaced:false 
+  },
+  dog2:{
+    name: 'dog2',
+    img:'',
+    sizeHorizontal:1,
+    sizeVertical:1,
+    orientation: 'vertical',
+    isPlaced:false 
+  },
+  dog3:{
+    name: 'dog3',
+    img:'',
+    sizeHorizontal:1,
+    sizeVertical:2,
+    orientation: 'vertical',
+    isPlaced:false 
+  },
+  dog4:{
+    name: 'dog4',
+    img:'',
+    sizeHorizontal:1,
+    sizeVertical:2,
+    orientation: 'vertical',
+    isPlaced:false 
+  },
+  dog5:{
+    name: 'dog5',
+    img:'',
+    sizeHorizontal:1,
+    sizeVertical:3,
+    orientation: 'vertical',
+    isPlaced:false 
+  },
+  dog6:{
+    name: 'dog6',
+    img:'',
+    sizeHorizontal:2,
+    sizeVertical:2,
+    orientation: 'vertical',
+    isPlaced:false
+  },
+  dog7:{
+    name: 'dog7',
+    img:'',
+    sizeHorizontal:2,
+    sizeVertical:2,
+    orientation: 'vertical',
+    isPlaced:false
+  }
+}
+
 
 // tablero
-
 const GameBoard1 = () => {
 
   let emptyPiece = {
@@ -22,7 +83,8 @@ const GameBoard1 = () => {
     img:'',
     sizeHorizontal:0,
     sizeVertical:0,
-    orientation: ''   
+    orientation: '',
+    isPlaced:false   
   }  
 
   // fijar tamaño de tabla
@@ -34,7 +96,7 @@ const GameBoard1 = () => {
   for (let h = 0; h < tableHeight; h++) {
     let row = [];
     for (let w = 0; w < tableWidth; w++) {
-      row[w] = { state:false, x: w, y: h };
+      row[w] = { state:false, x: h, y: w, piece:emptyPiece};
     }
     table[h] = row;
   }
@@ -47,61 +109,96 @@ const GameBoard1 = () => {
   //Toggle-Buton
   const [isRotated, setIsRotated] = useState(false);
 
-  let pieceSelected = {
-    name:'perro1',
-    size:2,
-    orientation: 'vertical'
-  };
+  //variable que se le pasa el contexto
+  const gameBoardState = {selectedPiece,setSelectedPiece, pieces};
+
+  const copyTable = (table) =>{
+    return table.map( x => {
+      return x.map( y => {
+        return { ...y} 
+       })
+     });
+  }
 
   // marcar una celda de la tabla y cambiarla de estado
   const setPiece = (x, y) => {
-    let newTable = tableState.map( x => {
-       return x.map( y => {
-         return { ...y} 
-        })
-      });
+    
+   
+
     let sizeHorizontal = selectedPiece.sizeHorizontal;
     let sizeVertical = selectedPiece.sizeVertical;
-    if(isRotated){
-      sizeHorizontal = selectedPiece.sizeVertical;
-      sizeVertical = selectedPiece.sizeHorizontal;
+
+
+    //condicion para saber si en la celda hay un perro
+    let removePiece=false;
+    if(tableState[x][y].piece.name === ''){ 
+      if(isRotated){
+        sizeHorizontal = selectedPiece.sizeVertical;
+        sizeVertical = selectedPiece.sizeHorizontal;
+      }
+    }else{
+      removePiece=true;
+      sizeHorizontal = tableState[x][y].piece.sizeHorizontal;
+      sizeVertical = tableState[x][y].piece.sizeVertical;
     }
+
+    if(selectedPiece.name === "" && !removePiece){
+      return tableState;
+    }
+
+    let newTable = copyTable(tableState);
+
+    //dibujando la tabla con la pieza
     for (let i=0; i<sizeHorizontal; i++){
       for (let j=0; j<sizeVertical; j++){
+        
+        if(removePiece && selectedPiece.name === ""){
+           //removiendo pieza que esta colocada en el tablero 
+           pieces[newTable[x+i][y+j].piece.name].isPlaced = false;
+           newTable[x+i][y+j] = { state:false, x: x+i, y: y+j, piece:emptyPiece};
+        }else{ 
+
+          //validando que la pieza no se ponga en los boredes del tablero
         if((x+i)>=newTable.length || (y+j)>=newTable.length){
           alert("no hay espacio soficiente para colocar esta pieza");
           return tableState;
         }
+        //validando que la pieza no se ponga sobre otra pieza
         if(tableState[x+i][y+j].state){
           alert("no se puede incertar la pieza en donde ya existe una pieza");
         return tableState;
         }
-        newTable[x+i][y+j].state = true;
+           //colocando pieza en el tablero  
+        newTable[x+i][y+j] = { state:true, x: x, y: y, piece:selectedPiece};
+        
+      }
       }
     }
+    if(!removePiece){
+      pieces[selectedPiece.name].isPlaced = true;
+    }
+    setSelectedPiece(emptyPiece);
     return newTable;
   };
 
   const setID = position => {
     return parseInt(position.x.toString() + position.y.toString()) + 1;
   };
-
-  const gameBoardState = {selectedPiece,setSelectedPiece};
-
+ 
   return (
     <div id='gameBoard'>
       <div id='boardPlayer1'>
        <div>
           <GameBoardPaintContext.Provider value={gameBoardState}>
-            <Pieces/>
+            <ShowPieces/>
           </GameBoardPaintContext.Provider>
-          <ToggleButton
+          {/* <ToggleButton
           value="check"
           selected={isRotated}
            onChange={() => {
             setIsRotated(!isRotated);
           }}>Rotar
-        </ToggleButton>
+        </ToggleButton> */}
         </div>
         <Paper>
           <Table id='boardPlayer1'>
