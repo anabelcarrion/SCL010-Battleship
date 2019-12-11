@@ -1,99 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, useContext } from 'react';
 import './GameBoard.css';
-// import { func } from 'prop-types';
+import {GameBoardPaintContext} from './GameBoard1';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
-// crear los objetos con los valores que tendrán las piezas del juego (esta data luego se guardara en firebase)
-let guidePiece = {
-  name: '',
-  size: '',
-  orientation: ''
-};
-let piece1 = {
-  name: 'perro1',
-  size: '[1,4]',
-  orientation: 'vertical'
-};
-let piece2 = {
-  name: 'perro2',
-  size: '[1,2]',
-  orientation: 'vertical'
-};
-let piece3 = {
-  name: 'perro3',
-  size: 'tresCuadrado',
-  orientation: 'vertical'
-};
-let piece4 = {
-  name: 'perro4',
-  size: 'seisCuadrado',
-  orientation: 'vertical'
-};
-
-// hooks
-export const usePieceState = () => {
-  const [selectedPiece, setSelectedPiece] = useState({
-    name: '',
-    size: '',
-    orientation: ''
-  });
-  useEffect(() => {
-    setSelectedPiece({
-      guidePiece
-    });
-    console.log(guidePiece);
-  }, []);
-  return selectedPiece;
-};
 
 // asignar valores a las piezas
-
-const selectPiece = piece => {
-  guidePiece = piece;
-  console.log(guidePiece);
-};
-
-const Pieces = () => {
-  const [pieceState, setPieceState] = useState(guidePiece);
-
+const ShowPieces = () => {
+  const {selectedPiece,setSelectedPiece,pieces} = useContext(GameBoardPaintContext);
   return (
     <div>
-      <p>esta seleccionado la pieza: {pieceState.name}</p>
-      <p>orientacion:{pieceState.orientation}</p>
-      <p>tamaño:{pieceState.size}</p>
-      <button
-        onClick={() => {
-          selectPiece(piece1);
-          setPieceState(piece1);
-        }}
-      >
-        perro1
-      </button>
-      <button
-        onClick={() => {
-          selectPiece(piece2);
-          setPieceState(piece2);
-        }}
-      >
-        perro2
-      </button>
-      <button
-        onClick={() => {
-          selectPiece(piece3);
-          setPieceState(piece3);
-        }}
-      >
-        perro3
-      </button>
-      <button
-        onClick={() => {
-          selectPiece(piece4);
-          setPieceState(piece4);
-        }}
-      >
-        perro4
-      </button>
+    <ButtonGroup
+              variant="text"
+              color="primary"
+              aria-label="full-width contained primary button group"
+            >
+       <Button disabled={pieces.dog1.isPlaced} onClick={() => {
+          setSelectedPiece(pieces.dog1);   
+        }}>perro1</Button>
+      
+        <Button disabled={pieces.dog2.isPlaced} onClick={() => {
+          setSelectedPiece(pieces.dog2);   
+        }}>perro2</Button>
+
+        <Button disabled={pieces.dog3.isPlaced} onClick={() => {
+          setSelectedPiece(pieces.dog3);   
+        }}>perro3</Button>
+
+        <Button disabled={pieces.dog4.isPlaced} onClick={() => {
+          setSelectedPiece(pieces.dog4);   
+        }}>perro4</Button>
+
+        <Button disabled={pieces.dog5.isPlaced} onClick={() => {
+          setSelectedPiece(pieces.dog5);   
+        }}>perro5</Button>
+        
+        <Button disabled={pieces.dog6.isPlaced} onClick={() => {
+          setSelectedPiece(pieces.dog6);   
+        }}>perro6</Button>
+
+        <Button disabled={pieces.dog7.isPlaced} onClick={() => {
+          setSelectedPiece(pieces.dog7);   
+        }}>perro7</Button>
+      </ButtonGroup> 
     </div>
   );
 };
 
-export default Pieces;
+export default ShowPieces;

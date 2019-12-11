@@ -12,14 +12,14 @@ import EndGame from './Views/EndGame';
 const App=()=> {
   return (
     <Router>
-      <div>
+      <React.Fragment>
         <Redirect
             exact
             from="/"
-            to="/StarGame" />
+            to="/StartGame" />
           <Switch>
             <Route
-              path="/StarGame"
+              path="/StartGame"
               component={StartGame} />
             <Route
               path="/Game"
@@ -31,7 +31,7 @@ const App=()=> {
               path="/EndGame"
               component={EndGame} />
           </Switch>
-        </div>
+        </React.Fragment>
       </Router>
   );
 }

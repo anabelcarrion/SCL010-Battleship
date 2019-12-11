@@ -6,10 +6,10 @@ function EndGame() {
   return (
     <div>
      <h1>informacion sobre adopcion de perritos</h1>
-     <Link to="/Game">Volver</Link> 
-     <Button variant="outlined">
-        Revancha
-     </Button>
+     <Link to="/Game">Volver</Link>
+     <p></p> 
+     <Link to="/PlacingPieces">Revancha</Link>
+     <p></p>
      <Button variant="outlined">
         Salir
     </Button>
