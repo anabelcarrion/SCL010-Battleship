@@ -122,12 +122,9 @@ const GameBoard1 = () => {
 
   // marcar una celda de la tabla y cambiarla de estado
   const setPiece = (x, y) => {
-    
-   
 
     let sizeHorizontal = selectedPiece.sizeHorizontal;
     let sizeVertical = selectedPiece.sizeVertical;
-
 
     //condicion para saber si en la celda hay un perro
     let removePiece=false;
