@@ -24,7 +24,7 @@ const StartGame  = () => {
           onChange={(event) => setUserName(event.target.value)}
           required={true}>
           </Input>
-            <Link to="/PlacingPieces"><Button
+            <Link to="/PlacingPieces"><Button variant="outlined"
             onClick={() => sentToFirebase(userName)}
           >Crear partida</Button></Link>
     </section>

@@ -49,22 +49,25 @@ border-color: #75E6AC;
 border-radius: 10px;
 }
 
-.MuiOutlinedInput-root {
-  padding: 0px;
-  margin: 10px;
-}
-
 input {
   padding: 5px !important;
 }
 
-button {
+.Button {
   text-align: center;
-  background-color: white;
-  height: 40px;
-  width: 140px;
   border-radius: 5px;
-  border-color: #75E6AC
+}
+
+.MuiButton-root {
+  width: 160px !important;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 20px !important;
+  text-transform: none !important;
+  font-weight: bold !important;
+}
+
+.MuiButton-outlined {
+  border: 1px solid #75E6AC !important;
 }
 
 a {
