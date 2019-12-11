@@ -9,7 +9,7 @@ const StartGame  = () => {
   const [userName, setUserName] = useState('Jugador');
   
   //Guardando el nombre ingresado en localstorage y enviando mensaje de whatsapp
-  function sentToFirebase(userName) {
+  function sentToLocalStorage(userName) {
     localStorage.setItem('name', JSON.stringify(userName));
     //Se envia la petición de enviar por wsp pero falta agregar URL para entrar al juego
     window.location.href = 'whatsapp://send?text=Puedes bañar a estos perritos más rápido que yo? Únete a mi juego'
@@ -24,7 +24,7 @@ const StartGame  = () => {
           required={true}>
           </Input>
             <Link to="/PlacingPieces"><Button
-            onClick={() => sentToFirebase(userName)}
+            onClick={() => sentToLocalStorage(userName)}
           >Comenzar a jugar</Button></Link>
 		 <a><img height="100px" src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img></a>   
     </section>   

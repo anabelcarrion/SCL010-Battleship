@@ -177,6 +177,7 @@ const GameBoard1 = () => {
         localStorage.setItem('table', JSON.stringify(newTable))  
       }
     }
+  }
     if(!removePiece){
       pieces[selectedPiece.name].isPlaced = true;
     }
@@ -228,4 +229,5 @@ const GameBoard1 = () => {
     </div>
   );
 };
+
 export default GameBoard1;

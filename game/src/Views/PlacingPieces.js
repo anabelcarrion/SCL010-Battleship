@@ -13,14 +13,24 @@ function PlacingPieces() {
     const sentToFirebase = () => {
       const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
       const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
+
       const db = firebase.firestore();
       db.collection("game").add({
         name1: getNameFromLocalStorage,
-        board1: null
+        0: getTableFromLocalStorage[0],
+        1: getTableFromLocalStorage[1],
+        2: getTableFromLocalStorage[2],
+        3: getTableFromLocalStorage[3],
+        4: getTableFromLocalStorage[4],
+        5: getTableFromLocalStorage[5],
+        6: getTableFromLocalStorage[6],
+        7: getTableFromLocalStorage[7],
+        8: getTableFromLocalStorage[8],
+        9: getTableFromLocalStorage[9] 
       })
       .then(function(docRef) {
         docRefGamer = docRef.id;
-        console.log('id.documento:', docRefGamer)
+        localStorage.setItem('key', JSON.stringify(docRefGamer));
       // Remover info guardada en localstorage
       // .then(function() {
         //  localStorage.removeItem('name1');   
