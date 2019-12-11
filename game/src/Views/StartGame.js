@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
 import {Link} from "react-router-dom";
-import Grid from '@material-ui/core/Grid';
 import { Button, Input } from '@material-ui/core';
-import firebase from '../data/firebase';
+// import firebase from '../data/firebase';
 
 // vista incial, donde se va a crear el juego
 const StartGame  = () => {
 
   const [userName, setUserName] = useState('Jugador');
-
+  
+  //Guardando el nombre ingresado en localstorage y enviando mensaje de whatsapp
   function sentToFirebase(userName) {
-    const db = firebase.firestore();
-    db.collection("game").add({
-      nombre1: userName,
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
-    console.log('Hola jugador:', userName);
+    localStorage.setItem('name', JSON.stringify(userName));
+    //Se envia la petición de enviar por wsp pero falta agregar URL para entrar al juego
+    window.location.href = 'whatsapp://send?text=Puedes bañar a estos perritos más rápido que yo? Únete a mi juego'
   }
 
   return (
@@ -32,7 +24,8 @@ const StartGame  = () => {
           required={true}>
           </Input>
             <Link to="/PlacingPieces"><Button
-          onClick={() => sentToFirebase(userName)}>Crear Partida</Button></Link>
+            onClick={() => sentToFirebase(userName)}
+          >Comenzar a jugar</Button></Link>
 		 <a><img height="100px" src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img></a>   
     </section>   
   );
