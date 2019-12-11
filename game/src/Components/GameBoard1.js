@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 //import { usePieceState } from './Pieces';
 import './GameBoard.css';
 import ShowPieces from './Pieces';
@@ -9,6 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import { PlacingPiecesContext } from '../Views/PlacingPieces';
 
 //creando context para GameBorad
 export const GameBoardPaintContext=React.createContext();
@@ -112,6 +113,28 @@ const GameBoard1 = () => {
   //variable que se le pasa el contexto
   const gameBoardState = {selectedPiece,setSelectedPiece, pieces};
 
+  
+  const {piecesToSave,setPiecesToSave} = useContext(PlacingPiecesContext);
+
+  const addPieceToSave = (pieceToAdd, x, y) => {
+    let newPieces = piecesToSave.map(x => x);
+    newPieces.push(pieceToAdd);
+    setPiecesToSave(newPieces);
+  }
+
+  const removePieceToSave = (pieceToDelete) => {
+    let newPieces = [];
+    for (let i = 0; i < piecesToSave.length; i++) {
+      const piece = piecesToSave[i];
+      if (piece.name === pieceToDelete.name) {
+        piecesToSave.splice(i,1);
+        break;
+      }      
+    }
+    setPiecesToSave(piecesToSave.map(x => x));
+  }
+
+
   const copyTable = (table) =>{
     return table.map( x => {
       return x.map( y => {
@@ -135,6 +158,7 @@ const GameBoard1 = () => {
       }
     }else{
       removePiece=true;
+      removePieceToSave(tableState[x][y].piece);
       sizeHorizontal = tableState[x][y].piece.sizeHorizontal;
       sizeVertical = tableState[x][y].piece.sizeVertical;
     }
@@ -167,12 +191,13 @@ const GameBoard1 = () => {
         }
            //colocando pieza en el tablero  
         newTable[x+i][y+j] = { state:true, x: x, y: y, piece:selectedPiece};
-        
+        console.log (newTable);
       }
       }
     }
     if(!removePiece){
       pieces[selectedPiece.name].isPlaced = true;
+      addPieceToSave(selectedPiece);
     }
     setSelectedPiece(emptyPiece);
     return newTable;
