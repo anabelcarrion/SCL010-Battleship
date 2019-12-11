@@ -10,9 +10,6 @@ const ShowPieces = () => {
   const {selectedPiece,setSelectedPiece,pieces} = useContext(GameBoardPaintContext);
   return (
     <div>
-    <p>esta seleccionado la pieza: {selectedPiece.name}</p>
-    <p>orientacion:{selectedPiece.orientation}</p>
-    <p>tamaño:{selectedPiece.sizeHorizontal}x{selectedPiece.sizeVertical}</p>
     <ButtonGroup
               variant="text"
               color="primary"
