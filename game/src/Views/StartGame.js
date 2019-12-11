@@ -8,6 +8,7 @@ import firebase from '../data/firebase';
 const StartGame  = () => {
 
   const [userName, setUserName] = useState('Jugador');
+  const [documentId, setDocumentId] = useState();
 
   function sentToFirebase(userName) {
     const db = firebase.firestore();
@@ -16,6 +17,7 @@ const StartGame  = () => {
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
+        setDocumentId(docRef.id);
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -32,8 +34,8 @@ const StartGame  = () => {
           required={true}>
           </Input>
             <Link to="/PlacingPieces"><Button
-          onClick={() => sentToFirebase(userName)}>Crear Partida</Button></Link>
-		 <a><img height="100px" src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img></a>   
+          onClick={() => sentToFirebase(userName)}>Crear Partida</Button></Link> 
+          <img height="100px" src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img> 
     </section>   
   );
 };
