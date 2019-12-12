@@ -2,19 +2,13 @@ import React, { Component, useEffect, useState, useContext } from 'react';
 import './GameBoard.css';
 import {GameBoardPaintContext} from './CreateGameBoard';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 
 // asignar valores a las piezas
 const ShowPieces = () => {
   const {selectedPiece,setSelectedPiece,pieces} = useContext(GameBoardPaintContext);
   return (
-    <div>
-    <ButtonGroup
-              variant="text"
-              color="primary"
-              aria-label="full-width contained primary button group"
-            >
+    <section id="dog-btns">
        <Button disabled={pieces.dog1.isPlaced} onClick={() => {
           setSelectedPiece(pieces.dog1);   
         }}>perro1</Button>
@@ -42,8 +36,7 @@ const ShowPieces = () => {
         <Button disabled={pieces.dog7.isPlaced} onClick={() => {
           setSelectedPiece(pieces.dog7);   
         }}>perro7</Button>
-      </ButtonGroup> 
-    </div>
+    </section>
   );
 };
 
