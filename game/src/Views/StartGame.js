@@ -16,18 +16,20 @@ const StartGame  = () => {
   }
 
   return (
+    <div id="outer-section">
     <section id="start-game">
           <Input 
           type="text" 
-          placeholder="Ingresa tu nombre"
+          placeholder="Nombre"
           onChange={(event) => setUserName(event.target.value)}
           required={true}>
           </Input>
-            <Link to="/PlacingPieces"><Button
-            onClick={() => sentToLocalStorage(userName)}
-          >Comenzar a jugar</Button></Link>
-		 <a><img height="100px" src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img></a>   
-    </section>   
+            <Link to="/PlacingPieces"><Button variant="outlined"
+            onClick={() => sentToFirebase(userName)}
+          >Crear partida</Button></Link>
+    </section>
+    <a><img src="https://i.ibb.co/CzRsWYX/portada.jpg" alt="portada"></img></a>   
+    </div>   
   );
 };
 

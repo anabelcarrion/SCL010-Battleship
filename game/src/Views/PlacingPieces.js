@@ -1,5 +1,5 @@
 import React from 'react';
-import GameBoard1 from '../Components/GameBoard1';
+import CreateGameBoard from '../Components/CreateGameBoard';
 import {Link} from "react-router-dom";
 import { Button } from '@material-ui/core';
 import firebase from '../data/firebase'
@@ -40,12 +40,12 @@ function PlacingPieces() {
      <h1>Coloca las perritos en el tablero de juego</h1>
      <Link to="/StartGame">Volver</Link> 
      <PlacingPiecesContext.Provider value={piecesToSaveState}>
-        <GameBoard1/>
+        <CreateGameBoard/>
      </PlacingPiecesContext.Provider> 
      <Button
       onClick={() => sentToFirebase()}
       >
-       <Link to="/Game">Jugar</Link>
+      <Link to="/Game">Jugar</Link>
       </Button>   
     </div>
   );
