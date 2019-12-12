@@ -9,7 +9,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 const ShowPieces = () => {
   const {selectedPiece,setSelectedPiece,pieces} = useContext(GameBoardPaintContext);
   return (
-    <div>
+    <section id="dog-btns">
     <ButtonGroup
               variant="text"
               color="primary"
@@ -43,7 +43,7 @@ const ShowPieces = () => {
           setSelectedPiece(pieces.dog7);   
         }}>perro7</Button>
       </ButtonGroup> 
-    </div>
+    </section>
   );
 };
 

@@ -55,8 +55,8 @@ border-radius: 10px;
 }
 
 #placing-pieces {
-  height: 100%;
   width: 100%;
+  display: flex;
 }
 
 div#gameBoard {
@@ -99,6 +99,8 @@ nav {
   width: 100%;
   align-items: flex-start;
   justify-content: center;
+  background-color: white;
+  color: gray;
 }
 
 input[type="text"] {
@@ -108,5 +110,14 @@ input[type="text"] {
 }
 
 input::placeholder {
+  text-align: center;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
   text-align: center;
 }
