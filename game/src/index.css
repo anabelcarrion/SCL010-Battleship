@@ -57,6 +57,7 @@ border-radius: 10px;
 #placing-pieces {
   width: 100%;
   display: flex;
+  justify-content: center;
 }
 
 div#gameBoard {
@@ -105,6 +106,11 @@ nav {
   justify-content: center;
   background-color: white;
   color: gray;
+}
+
+nav a  {
+  display: flex;
+  align-self: center;
 }
 
 input[type="text"] {
