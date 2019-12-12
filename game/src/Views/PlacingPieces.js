@@ -8,13 +8,14 @@ export const PlacingPiecesContext=React.createContext();
 
 
 function PlacingPieces() {
+  
 
     //Variable que guarda el id del doc
     let docRefGamer;
     const [piecesToSave,setPiecesToSave] = React.useState([]);
     
     // función enviar nombre y piezas seleccionadas a firebase
-    const sentToFirebase = () => {
+    /*const sentToFirebase = () => {
       console.log(piecesToSave);
       const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
       const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
@@ -26,13 +27,36 @@ function PlacingPieces() {
       })
       .then(function(docRef) {
         docRefGamer = docRef.id;
-        console.log('id.documento:', docRefGamer)
+        localStorage.setItem('gameId',docRefGamer);
       // Remover info guardada en localstorage
       // .then(function() {
         //  localStorage.removeItem('name1');   
       // })
       return sentToFirebase;
       })
+      console.log(localStorage.getItem('gameId'));
+    }*/
+    const [isSavedInFirebase,setIsSavedInFirebase] = React.useState(false);
+    const sentToFirebase = async () => {
+      try {
+          console.log(piecesToSave);
+          const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
+          const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
+    
+          const db = firebase.firestore();
+          let docRef = await db.collection("game").add({
+            name1: getNameFromLocalStorage,
+            pieces:piecesToSave
+          })
+
+          docRefGamer = docRef.id;
+          localStorage.setItem('gameId',docRefGamer);
+          console.log('id.documento:', docRefGamer);
+          setIsSavedInFirebase(true)
+                    
+      } catch (err) {
+          console.log('failed');
+      }
     }
   
   let piecesToSaveState = {piecesToSave,setPiecesToSave};  
@@ -46,10 +70,12 @@ function PlacingPieces() {
         <CreateGameBoard/>
      </PlacingPiecesContext.Provider> 
      <Button variant="outlined"
-      onClick={() => sentToFirebase()}
-      >
+      onClick={() => sentToFirebase()}>
+          Guardar en Firebase
+      </Button>
+       <Button variant="outlined" disabled = {!isSavedInFirebase}>
       <Link to="/Game">Jugar</Link>
-      </Button>   
+      </Button>     
     </section>
     </div>
   );
