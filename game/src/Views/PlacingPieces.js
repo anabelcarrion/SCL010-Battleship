@@ -6,7 +6,6 @@ import firebase from '../data/firebase'
 
 export const PlacingPiecesContext=React.createContext();
 
-
 function PlacingPieces() {
 
     //Variable que guarda el id del doc
@@ -15,11 +14,8 @@ function PlacingPieces() {
     
     // función enviar nombre y piezas seleccionadas a firebase
     const sentToFirebase = () => {
-      console.log(piecesToSave);
+      console.log('Piezas para guardar:', piecesToSave);
       const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
-      const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
-
-
 
       const db = firebase.firestore();
       db.collection("game").add({

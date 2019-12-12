@@ -191,7 +191,7 @@ const GameBoard1 = () => {
         }
            //colocando pieza en el tablero  
         newTable[x+i][y+j] = { state:true, x: x, y: y, piece:selectedPiece};
-        console.log (newTable);
+        console.log ('newTable', newTable);
       }
       }
     }
