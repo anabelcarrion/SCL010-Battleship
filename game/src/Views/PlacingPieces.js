@@ -8,6 +8,7 @@ import { getDefaultWatermarks } from 'istanbul-lib-report';
 export const PlacingPiecesContext=React.createContext();
 
 function PlacingPieces() {
+  
 
     const [piecesToSave,setPiecesToSave] = React.useState([]);
     
@@ -65,24 +66,53 @@ function PlacingPieces() {
           } 
         });
       })
+      console.log(localStorage.getItem('gameId'));
+    }
+    const [isSavedInFirebase,setIsSavedInFirebase] = React.useState(false);
+    const sentToFirebase = async () => {
+      try {
+          console.log(piecesToSave);
+          const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
+          const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
+    
+          const db = firebase.firestore();
+          let docRef = await db.collection("game").add({
+            name1: getNameFromLocalStorage,
+            pieces:piecesToSave
+          })
+
+          docRefGamer = docRef.id;
+          localStorage.setItem('gameId',docRefGamer);
+          console.log('id.documento:', docRefGamer);
+          setIsSavedInFirebase(true)
+                    
+      } catch (err) {
+          console.log('failed');
+      }
     }
   
   let piecesToSaveState = {piecesToSave,setPiecesToSave};  
 
   return (
     <div id="outer-placing-pieces">
-    <nav><h1>Coloca las perritos en el tablero de juego</h1></nav>
-    <section id="placing-pieces">
-     <Link to="/StartGame"><Button variant="outlined">Volver</Button></Link> 
+    <nav>
+    <Link to="/StartGame"><Button id="back-btn"><i class="far fa-arrow-alt-circle-left"></i></Button></Link>
+    <h1>Coloca las perritos en el tablero de juego</h1>
+    </nav>
+    <div id="placing-pieces"> 
      <PlacingPiecesContext.Provider value={piecesToSaveState}>
         <CreateGameBoard/>
-     </PlacingPiecesContext.Provider> 
+     </PlacingPiecesContext.Provider>  
+    </div>
+    <footer>
      <Button variant="outlined"
-      onClick={() => sentToFirebase()}
-      >
+      onClick={() => sentToFirebase()}>
+          Guardar en Firebase
+      </Button>
+       <Button variant="outlined" disabled = {!isSavedInFirebase}>
       <Link to="/Game">Jugar</Link>
-      </Button>   
-    </section>
+      </Button>  
+      </footer>
     </div>
   );
 }

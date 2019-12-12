@@ -55,12 +55,19 @@ border-radius: 10px;
 }
 
 #placing-pieces {
-  height: 100%;
   width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div#gameBoard {
   width: 400px;
+}
+
+section#dog-btns {
+  width: 50%;
 }
 
 input {
@@ -73,16 +80,23 @@ input {
 }
 
 .MuiButton-root {
-  width: 160px !important;
+  width: auto !important;
   color: #000000de;
   background-color: white !important;
-  margin: 20px !important;
+  margin: 10px !important;
   text-transform: none !important;
   font-weight: bold !important;
 }
 
 .MuiButton-outlined {
   border: 1px solid #75E6AC !important;
+}
+
+#back-btn {
+  display: flex;
+  font-size: 2rem;
+  padding: 0px !important;
+  width: auto !important;
 }
 
 a {
@@ -98,7 +112,14 @@ nav {
   display: flex;
   width: 100%;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: end;
+  background-color: white;
+  color: gray;
+}
+
+nav a  {
+  display: flex;
+  align-self: center;
 }
 
 input[type="text"] {
@@ -109,4 +130,18 @@ input[type="text"] {
 
 input::placeholder {
   text-align: center;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  display: table-row;
+}
+
+i {
+  font-size: 20px;
 }
