@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import Button from '@material-ui/core/Button';
+import { Button } from '@material-ui/core';
 import GameBoard1 from '../Components/GameBoard1';
 import GameBoard2 from '../Components/GameBoard2';
 
