@@ -1,0 +1,90 @@
+    // Función para guardar datos de un segundo jugador en firebase
+
+    // const sentToFirebase = () => {
+    //   //   console.log('Piezas para guardar:', piecesToSave);
+    //   //   const getKeyFromLocalStorage = JSON.parse(localStorage.getItem('key'));
+    //   //   console.log('Key:', getKeyFromLocalStorage);
+    //   //   const db = firebase.firestore();
+    //   //   db.collection("game").doc(docRefGamer).get().then(function(doc) {
+    //     //     if (doc.exists) {
+    //       //       console.log('Data2:', doc.data());
+    //       //     }
+    //       //   })
+          
+    //       //   .then(function(docRef) {
+    //         //     docRefGamer = docRef.id;
+    //         //     localStorage.setItem('key', JSON.stringify(docRefGamer));
+    //         //   })
+    //         //   .then(function() {
+    //           //     getData();
+    //           //   })
+    //           //   return sentToFirebase;
+    //           //   // Remover info guardada en localstorage
+    //           //   // .then(function() {
+    //             //     //  localStorage.removeItem('name1');   
+    //             //   // })
+    //             // }
+                
+    //   // función enviar nombre y piezas seleccionadas a firebase
+    //   const sentToFirebase = () => {
+    //   const getKeyFromLocalStorage = JSON.parse(localStorage.getItem('key'));
+    //   console.log('GETKEY:', getKeyFromLocalStorage);
+    //   let dataUser;
+    //   const db = firebase.firestore();
+    //   db.collection("game").where("key", "==", getKeyFromLocalStorage)
+    //   .get().then(function(querySnapshot) {
+    //     querySnapshot.forEach(function(doc) {
+    //       dataUser = doc.data()
+    //       console.log('DATAINFO:', dataUser);
+    //       if (doc.exists) {
+    //         dataUser.map(dataName => {
+    //           if (dataName.nombre1 == true) {
+    //             const db = firebase.firestore();
+    //             db.collection("game").doc(getKeyFromLocalStorage).update({
+    //               pieces1: piecesToSave
+    //             })
+    //           }
+    //           if (dataName.nombre1 == true && dataName.nombre2 == true) {
+    //             const db = firebase.firestore();
+    //             db.collection("game").doc(getKeyFromLocalStorage).update({
+    //               pieces2: piecesToSave
+    //             })
+    //           }
+    //         })
+    //       } 
+    //     });
+    //   })
+    //   console.log(localStorage.getItem('gameId'));
+    // }
+    --------------------------------------------------------------------------------------------
+// Guardando el nombre ingresado en localstorage y enviando mensaje de whatsapp
+
+  function sentToLocalStorage(userName, keyGamer2) {
+    if (keyGamer2 != null) {
+      localStorage.setItem('key', JSON.stringify(keyGamer2))
+      const db = firebase.firestore();
+      db.collection("game").doc(keyGamer2).get().then(function(doc) {
+        if (doc.exists) {
+          const db = firebase.firestore();
+          db.collection("game").doc(keyGamer2).update({
+            name2: userName,
+          })
+        }
+      })
+    } else {
+      const db = firebase.firestore();
+      db.collection("game").add({
+        name1: userName,
+      })
+      .then(function(doc) {
+        console.log('Key:', doc.id);
+        alert('Envia esta clave para que un jugador se una al juego: ' + doc.id)
+        localStorage.setItem('key', JSON.stringify(doc.id))
+        db.collection("game").doc(doc.id).update({
+          key: doc.id
+        })
+        //Se envia la petición de enviar por wsp pero falta agregar URL para entrar al juego
+        window.location.href = 'whatsapp://send?text=Puedes bañar a estos perritos más rápido que yo? Únete a mi juego';
+      })
+      }
+  }

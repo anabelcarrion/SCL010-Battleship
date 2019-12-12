@@ -9,65 +9,8 @@ export const PlacingPiecesContext=React.createContext();
 
 function PlacingPieces() {
   
-
     const [piecesToSave,setPiecesToSave] = React.useState([]);
     
-    // const sentToFirebase = () => {
-      //   console.log('Piezas para guardar:', piecesToSave);
-      //   const getKeyFromLocalStorage = JSON.parse(localStorage.getItem('key'));
-      //   console.log('Key:', getKeyFromLocalStorage);
-      //   const db = firebase.firestore();
-      //   db.collection("game").doc(docRefGamer).get().then(function(doc) {
-        //     if (doc.exists) {
-          //       console.log('Data2:', doc.data());
-          //     }
-          //   })
-          
-          //   .then(function(docRef) {
-            //     docRefGamer = docRef.id;
-            //     localStorage.setItem('key', JSON.stringify(docRefGamer));
-            //   })
-            //   .then(function() {
-              //     getData();
-              //   })
-              //   return sentToFirebase;
-              //   // Remover info guardada en localstorage
-              //   // .then(function() {
-                //     //  localStorage.removeItem('name1');   
-                //   // })
-                // }
-                
-      // función enviar nombre y piezas seleccionadas a firebase
-      const sentToFirebase = () => {
-      const getKeyFromLocalStorage = JSON.parse(localStorage.getItem('key'));
-      console.log('GETKEY:', getKeyFromLocalStorage);
-      let dataUser;
-      const db = firebase.firestore();
-      db.collection("game").where("key", "==", getKeyFromLocalStorage)
-      .get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          dataUser = doc.data()
-          console.log('DATAINFO:', dataUser);
-          if (doc.exists) {
-            dataUser.map(dataName => {
-              if (dataName.nombre1 == true) {
-                const db = firebase.firestore();
-                db.collection("game").doc(getKeyFromLocalStorage).update({
-                  pieces1: piecesToSave
-                })
-              }
-              if (dataName.nombre1 == true && dataName.nombre2 == true) {
-                const db = firebase.firestore();
-                db.collection("game").doc(getKeyFromLocalStorage).update({
-                  pieces2: piecesToSave
-                })
-              }
-            })
-          } 
-        });
-      })
-      console.log(localStorage.getItem('gameId'));
-    }
     const [isSavedInFirebase,setIsSavedInFirebase] = React.useState(false);
     const sentToFirebase = async () => {
       try {
