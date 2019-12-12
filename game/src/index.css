@@ -56,8 +56,10 @@ border-radius: 10px;
 
 #placing-pieces {
   width: 100%;
+  height: 70%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 div#gameBoard {
@@ -130,4 +132,5 @@ footer {
   width: 100%;
   color: white;
   text-align: center;
+  display: table-row;
 }
