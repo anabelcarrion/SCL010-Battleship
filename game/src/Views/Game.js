@@ -69,9 +69,19 @@ function Game() {
   const showPlayer2=()=>{
     getPlayer2(opponentGameBoardId)
     .then(player2 => {
-      setdataPlayer2(player2);
-      setIsOpponentLoaded(true);
+      if (player2.name1) {
+        setdataPlayer2(player2);
+       setIsOpponentLoaded(true);
+      }else{
+        alert("codigo del oponente incorrecto");
+      }
+      
     })
+    .catch (err=> {
+      alert("codigo del oponente incorrecto");
+      setIsOpponentLoaded(false);
+    })
+
     return !isOpponentLoaded ? <h1>Cargando :)</h1> :(
     <ContexPlayer2.Provider value={ContexPlayer2State}>
       <GameBoardPlayer2/>
