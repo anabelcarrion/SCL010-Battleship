@@ -3,33 +3,67 @@ import CreateGameBoard from '../Components/CreateGameBoard';
 import {Link} from "react-router-dom";
 import { Button } from '@material-ui/core';
 import firebase from '../data/firebase'
+import { getDefaultWatermarks } from 'istanbul-lib-report';
 
 export const PlacingPiecesContext=React.createContext();
 
 function PlacingPieces() {
 
-    //Variable que guarda el id del doc
-    let docRefGamer;
     const [piecesToSave,setPiecesToSave] = React.useState([]);
     
-    // función enviar nombre y piezas seleccionadas a firebase
-    const sentToFirebase = () => {
-      console.log('Piezas para guardar:', piecesToSave);
-      const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
-
+    // const sentToFirebase = () => {
+      //   console.log('Piezas para guardar:', piecesToSave);
+      //   const getKeyFromLocalStorage = JSON.parse(localStorage.getItem('key'));
+      //   console.log('Key:', getKeyFromLocalStorage);
+      //   const db = firebase.firestore();
+      //   db.collection("game").doc(docRefGamer).get().then(function(doc) {
+        //     if (doc.exists) {
+          //       console.log('Data2:', doc.data());
+          //     }
+          //   })
+          
+          //   .then(function(docRef) {
+            //     docRefGamer = docRef.id;
+            //     localStorage.setItem('key', JSON.stringify(docRefGamer));
+            //   })
+            //   .then(function() {
+              //     getData();
+              //   })
+              //   return sentToFirebase;
+              //   // Remover info guardada en localstorage
+              //   // .then(function() {
+                //     //  localStorage.removeItem('name1');   
+                //   // })
+                // }
+                
+      // función enviar nombre y piezas seleccionadas a firebase
+      const sentToFirebase = () => {
+      const getKeyFromLocalStorage = JSON.parse(localStorage.getItem('key'));
+      console.log('GETKEY:', getKeyFromLocalStorage);
+      let dataUser;
       const db = firebase.firestore();
-      db.collection("game").add({
-        name1: getNameFromLocalStorage,
-        pieces:piecesToSave
-      })
-      .then(function(docRef) {
-        docRefGamer = docRef.id;
-        localStorage.setItem('key', JSON.stringify(docRefGamer));
-      // Remover info guardada en localstorage
-      // .then(function() {
-        //  localStorage.removeItem('name1');   
-      // })
-      return sentToFirebase;
+      db.collection("game").where("key", "==", getKeyFromLocalStorage)
+      .get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          dataUser = doc.data()
+          console.log('DATAINFO:', dataUser);
+          if (doc.exists) {
+            dataUser.map(dataName => {
+              if (dataName.nombre1 == true) {
+                const db = firebase.firestore();
+                db.collection("game").doc(getKeyFromLocalStorage).update({
+                  pieces1: piecesToSave
+                })
+              }
+              if (dataName.nombre1 == true && dataName.nombre2 == true) {
+                const db = firebase.firestore();
+                db.collection("game").doc(getKeyFromLocalStorage).update({
+                  pieces2: piecesToSave
+                })
+              }
+            })
+          } 
+        });
       })
     }
   
