@@ -20,7 +20,7 @@ const StartGame  = () => {
     <section id="start-game">
           <Input 
           type="text" 
-          placeholder="Nombre"
+          placeholder="Nombre" 
           onChange={(event) => setUserName(event.target.value)}
           required={true}>
           </Input>

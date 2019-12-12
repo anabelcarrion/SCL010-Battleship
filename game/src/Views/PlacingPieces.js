@@ -64,7 +64,7 @@ function PlacingPieces() {
   return (
     <div id="outer-placing-pieces">
     <nav>
-    <Link to="/StartGame"><Button variant="outlined">Volver</Button></Link>
+    <Link to="/StartGame"><Button id="back-btn"><i class="far fa-arrow-alt-circle-left"></i></Button></Link>
     <h1>Coloca las perritos en el tablero de juego</h1>
     </nav>
     <div id="placing-pieces"> 
