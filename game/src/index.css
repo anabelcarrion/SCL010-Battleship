@@ -24,6 +24,18 @@ align-items: center;
 justify-content: center;
 }
 
+#outer-section {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 65%;
+  }
+
+#outer-section img {
+  width: 320px;
+  }
+
 section#start-game {
 display: inline-flex;
 flex-direction: column;
@@ -34,42 +46,67 @@ width: 300px;
 background-color: white;
 border: 5px; 
 border-color: #75E6AC;
-border-radius: 5px;
+border-radius: 10px;
 }
 
-.MuiOutlinedInput-root {
-  padding: 0px;
-  margin: 10px;
+#outer-placing-pieces {
+  height: 100%;
+  width: 100%;
+}
+
+#placing-pieces {
+  height: 100%;
+  width: 100%;
+}
+
+div#gameBoard {
+  width: 400px;
 }
 
 input {
-  padding: 10px !important;
+  padding: 5px !important;
 }
 
-
-button {
+.Button {
   text-align: center;
-  background-color: white;
-  height: 40px;
-  width: 140px;
   border-radius: 5px;
-  border-color: #75E6AC
+}
+
+.MuiButton-root {
+  width: 160px !important;
+  color: #000000de;
+  background-color: white !important;
+  margin: 20px !important;
+  text-transform: none !important;
+  font-weight: bold !important;
+}
+
+.MuiButton-outlined {
+  border: 1px solid #75E6AC !important;
+}
+
+a {
+  text-decoration: none;
 }
 
 h1 {
-  text-align: center;
-}
-
-p {
-  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 nav {
-  width: 100%;
-  height: 50px;
-  border: 2px;
-  border-color: black;
   display: flex;
+  width: 100%;
+  align-items: flex-start;
   justify-content: center;
-  margin: 20px 0px;
+}
+
+input[type="text"] {
+  font-family: monospace;
+  font-size: 20px;
+  color: #1b1b1b;
+}
+
+input::placeholder {
+  text-align: center;
 }
