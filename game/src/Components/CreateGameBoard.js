@@ -249,10 +249,10 @@ const CreateGameBoard = () => {
           </Table>
         </Paper>
     </section>
-            <GameBoardPaintContext.Provider value={gameBoardState}>
+        <GameBoardPaintContext.Provider value={gameBoardState}>
             <ShowPieces/>
         </GameBoardPaintContext.Provider>
-        </React.Fragment>
+    </React.Fragment>
   );
 };
 
