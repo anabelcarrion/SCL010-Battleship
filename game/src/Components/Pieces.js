@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState, useContext } from 'react';
 import './GameBoard.css';
-import {GameBoardPaintContext} from './GameBoard1';
+import {GameBoardPaintContext} from './CreateGameBoard';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
@@ -10,9 +10,6 @@ const ShowPieces = () => {
   const {selectedPiece,setSelectedPiece,pieces} = useContext(GameBoardPaintContext);
   return (
     <div>
-    <p>esta seleccionado la pieza: {selectedPiece.name}</p>
-    <p>orientacion:{selectedPiece.orientation}</p>
-    <p>tamaño:{selectedPiece.sizeHorizontal}x{selectedPiece.sizeVertical}</p>
     <ButtonGroup
               variant="text"
               color="primary"

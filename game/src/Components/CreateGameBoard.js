@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 //import { usePieceState } from './Pieces';
 import './GameBoard.css';
-
-import Pieces from './Pieces';
-import firebase from '../data/firebase'
 import ShowPieces from './Pieces';
+import firebase from '../data/firebase'
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -12,6 +10,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import { PlacingPiecesContext } from '../Views/PlacingPieces';
 
 //creando context para GameBorad
 export const GameBoardPaintContext=React.createContext();
@@ -79,7 +78,7 @@ let pieces={
 
 
 // tablero
-const GameBoard1 = () => {
+const CreateGameBoard = () => {
 
   let emptyPiece = {
     name: '',
@@ -115,6 +114,35 @@ const GameBoard1 = () => {
   //variable que se le pasa el contexto
   const gameBoardState = {selectedPiece,setSelectedPiece, pieces};
 
+   //contexto
+  const {piecesToSave,setPiecesToSave} = useContext(PlacingPiecesContext);
+
+  //añadiendo piezas
+  const addPieceToSave = (pieceToAdd, x, y) => {
+    let newPieces = piecesToSave.map(x => x);
+    let piece = {x:x,
+                 y:y, 
+                 name: pieceToAdd.name, 
+                 sizeH: pieceToAdd.sizeHorizontal, 
+                 sizeV: pieceToAdd.sizeVertical}
+    newPieces.push(piece);
+    setPiecesToSave(newPieces);
+
+  }
+
+  //eliminado piezas
+  const removePieceToSave = (pieceToDelete) => {
+    for (let i = 0; i < piecesToSave.length; i++) {
+      const piece = piecesToSave[i];
+      if (piece.name === pieceToDelete.name) {
+        piecesToSave.splice(i,1);
+        break;
+      }      
+    }
+    setPiecesToSave(piecesToSave.map(x => x));
+  }
+
+
   const copyTable = (table) =>{
     return table.map( x => {
       return x.map( y => {
@@ -124,13 +152,9 @@ const GameBoard1 = () => {
   }
 
   // marcar una celda de la tabla y cambiarla de estado
-  const setPiece = (x, y) => {
-    
-   
-
+    const setPiece = (x, y) => {
     let sizeHorizontal = selectedPiece.sizeHorizontal;
     let sizeVertical = selectedPiece.sizeVertical;
-
 
     //condicion para saber si en la celda hay un perro
     let removePiece=false;
@@ -141,6 +165,7 @@ const GameBoard1 = () => {
       }
     }else{
       removePiece=true;
+      removePieceToSave(tableState[x][y].piece);
       sizeHorizontal = tableState[x][y].piece.sizeHorizontal;
       sizeVertical = tableState[x][y].piece.sizeVertical;
     }
@@ -161,26 +186,28 @@ const GameBoard1 = () => {
            newTable[x+i][y+j] = { state:false, x: x+i, y: y+j, piece:emptyPiece};
         }else{ 
 
-          //validando que la pieza no se ponga en los boredes del tablero
+          //validando que la pieza no se ponga en los bordes del tablero
         if((x+i)>=newTable.length || (y+j)>=newTable.length){
-          alert("No hay espacio suficiente para colocar esta pieza");
+          alert("no hay espacio soficiente para colocar esta pieza");
           return tableState;
         }
         //validando que la pieza no se ponga sobre otra pieza
         if(tableState[x+i][y+j].state){
-          alert("No se puede insertar la pieza porque ya existe una pieza en esta posición");
+          alert("no se puede incertar la pieza en donde ya existe una pieza");
         return tableState;
         }
-          //colocando pieza en el tablero  
+           //colocando pieza en el tablero  
         newTable[x+i][y+j] = { state:true, x: x, y: y, piece:selectedPiece};
-        //Enviando tabla con las piezas montadas a localstorage
-        localStorage.setItem('table', JSON.stringify(newTable))  
+        console.log (newTable);
+      }
       }
     }
     if(!removePiece){
       pieces[selectedPiece.name].isPlaced = true;
+      addPieceToSave(selectedPiece, x, y);
     }
     setSelectedPiece(emptyPiece);
+    console.log(newTable);
     return newTable;
   };
 
@@ -228,4 +255,5 @@ const GameBoard1 = () => {
     </div>
   );
 };
-export default GameBoard1;
+
+export default CreateGameBoard;
