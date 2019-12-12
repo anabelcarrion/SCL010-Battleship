@@ -1,5 +1,5 @@
 import React from 'react';
-import GameBoard1 from '../Components/GameBoard1';
+import CreateGameBoard from '../Components/CreateGameBoard';
 import {Link} from "react-router-dom";
 import { Button } from '@material-ui/core';
 import firebase from '../data/firebase'
@@ -18,8 +18,6 @@ function PlacingPieces() {
       console.log(piecesToSave);
       const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
       const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
-
-
 
       const db = firebase.firestore();
       db.collection("game").add({
@@ -45,12 +43,12 @@ function PlacingPieces() {
     <section id="placing-pieces">
      <Link to="/StartGame"><Button variant="outlined">Volver</Button></Link> 
      <PlacingPiecesContext.Provider value={piecesToSaveState}>
-        <GameBoard1/>
+        <CreateGameBoard/>
      </PlacingPiecesContext.Provider> 
      <Button variant="outlined"
       onClick={() => sentToFirebase()}
       >
-       <Link to="/Game">Jugar</Link>
+      <Link to="/Game">Jugar</Link>
       </Button>   
     </section>
     </div>

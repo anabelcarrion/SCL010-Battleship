@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState, useContext } from 'react';
 import './GameBoard.css';
-import {GameBoardPaintContext} from './GameBoard1';
-import { Button } from '@material-ui/core';
+import {GameBoardPaintContext} from './CreateGameBoard';
+import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 

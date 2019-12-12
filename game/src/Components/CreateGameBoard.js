@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 //import { usePieceState } from './Pieces';
 import './GameBoard.css';
 import ShowPieces from './Pieces';
+import firebase from '../data/firebase'
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -77,7 +78,7 @@ let pieces={
 
 
 // tablero
-const GameBoard1 = () => {
+const CreateGameBoard = () => {
 
   let emptyPiece = {
     name: '',
@@ -113,17 +114,24 @@ const GameBoard1 = () => {
   //variable que se le pasa el contexto
   const gameBoardState = {selectedPiece,setSelectedPiece, pieces};
 
-  
+   //contexto
   const {piecesToSave,setPiecesToSave} = useContext(PlacingPiecesContext);
 
+  //añadiendo piezas
   const addPieceToSave = (pieceToAdd, x, y) => {
     let newPieces = piecesToSave.map(x => x);
-    newPieces.push(pieceToAdd);
+    let piece = {x:x,
+                 y:y, 
+                 name: pieceToAdd.name, 
+                 sizeH: pieceToAdd.sizeHorizontal, 
+                 sizeV: pieceToAdd.sizeVertical}
+    newPieces.push(piece);
     setPiecesToSave(newPieces);
+
   }
 
+  //eliminado piezas
   const removePieceToSave = (pieceToDelete) => {
-    let newPieces = [];
     for (let i = 0; i < piecesToSave.length; i++) {
       const piece = piecesToSave[i];
       if (piece.name === pieceToDelete.name) {
@@ -144,8 +152,7 @@ const GameBoard1 = () => {
   }
 
   // marcar una celda de la tabla y cambiarla de estado
-  const setPiece = (x, y) => {
-
+    const setPiece = (x, y) => {
     let sizeHorizontal = selectedPiece.sizeHorizontal;
     let sizeVertical = selectedPiece.sizeVertical;
 
@@ -179,7 +186,7 @@ const GameBoard1 = () => {
            newTable[x+i][y+j] = { state:false, x: x+i, y: y+j, piece:emptyPiece};
         }else{ 
 
-          //validando que la pieza no se ponga en los boredes del tablero
+          //validando que la pieza no se ponga en los bordes del tablero
         if((x+i)>=newTable.length || (y+j)>=newTable.length){
           alert("no hay espacio soficiente para colocar esta pieza");
           return tableState;
@@ -197,9 +204,10 @@ const GameBoard1 = () => {
     }
     if(!removePiece){
       pieces[selectedPiece.name].isPlaced = true;
-      addPieceToSave(selectedPiece);
+      addPieceToSave(selectedPiece, x, y);
     }
     setSelectedPiece(emptyPiece);
+    console.log(newTable);
     return newTable;
   };
 
@@ -248,4 +256,4 @@ const GameBoard1 = () => {
   );
 };
 
-export default GameBoard1;
+export default CreateGameBoard;
