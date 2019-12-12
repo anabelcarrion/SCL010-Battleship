@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-//import { usePieceState } from './Pieces';
-import './GameBoard.css';
 import {GameContext} from '../Views/Game';
+import './GameBoard.css';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import { PlacingPiecesContext } from '../Views/PlacingPieces';
+import { Input } from '@material-ui/core';
 
-
-const GameBoard = () => {
+const GameBoradPlayer1 = () => {
 
   //importando contesto
   const {dataPlayer1, setdataPlayer1} = React.useContext(GameContext);
@@ -42,7 +39,6 @@ const GameBoard = () => {
       
     }
 
-
     return table;
   }
   const [tableState, setTableState] = useState(createTablePlayer1());
@@ -58,6 +54,10 @@ const GameBoard = () => {
 
     return (
       <div id='gameBoard'>
+        <Input
+        type="text"
+        placeholder="Ingresa el código de tu invitado">
+        </Input>
         <Paper>
           <Table id='boardPlayer1'>
             <TableBody>
@@ -80,8 +80,6 @@ const GameBoard = () => {
         </Paper>
       </div>
     );
-  
-  
 };
 
-export default GameBoard;
+export default GameBoradPlayer1;

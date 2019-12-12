@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
-import GameBoard from '../Components/GameBoard';
+import GameBoradPlayer1 from '../Components/GameBoradPlayer1';
 import firebase from '../data/firebase'
 import { rejects } from 'assert';
 
@@ -24,10 +24,26 @@ function getPlayer1(){
   })
 }
 
+function getPlayer2(){
+  return new Promise((resolve,reject) =>{
+        //conexiones a firebase
+    const db = firebase.firestore();
+    const docRef = db.collection("game").doc(localStorage.getItem('gameId'));
+    console.log("gameid en get player", localStorage.getItem('gameId'))
+    docRef.get().then(function(doc) {
+      console.log("documento de firebase", doc.data())
+      resolve(doc.data()) 
+    }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });
+    console.log()
+  })
+}
 function Game() {
 
   // hook
   const [dataPlayer1, setdataPlayer1] = React.useState({pieces:[]});
+  const [dataPlayer2, setdataPlayer2] = React.useState({pieces:[]});
   const [isLoading, setIsLoading] = React.useState(false);
 
   //objeto del context
@@ -49,12 +65,12 @@ function Game() {
     <div>
     <h1>Estamos en la sala de juego de {dataPlayer1.name1}</h1>
     <Button variant="outlined">
-        turno
+        Cargar Oponente
     </Button>
     <GameContext.Provider value={gameContext}>
-      <GameBoard/>
+      <GameBoradPlayer1/>
     </GameContext.Provider>
-    <Link to="/EndGame">Jugar</Link>
+    <Link to="/EndGame">Terminar juego</Link>
     </div>
   );
   

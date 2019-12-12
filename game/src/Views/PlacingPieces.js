@@ -6,57 +6,38 @@ import firebase from '../data/firebase'
 
 export const PlacingPiecesContext=React.createContext();
 
-
 function PlacingPieces() {
   
-
     //Variable que guarda el id del doc
     let docRefGamer;
     const [piecesToSave,setPiecesToSave] = React.useState([]);
     
-    // función enviar nombre y piezas seleccionadas a firebase
-    /*const sentToFirebase = () => {
-      console.log(piecesToSave);
-      const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
-      const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
-
-      const db = firebase.firestore();
-      db.collection("game").add({
-        name1: getNameFromLocalStorage,
-        pieces:piecesToSave
-      })
-      .then(function(docRef) {
-        docRefGamer = docRef.id;
-        localStorage.setItem('gameId',docRefGamer);
-      // Remover info guardada en localstorage
-      // .then(function() {
-        //  localStorage.removeItem('name1');   
-      // })
-      return sentToFirebase;
-      })
-      console.log(localStorage.getItem('gameId'));
-    }*/
     const [isSavedInFirebase,setIsSavedInFirebase] = React.useState(false);
     const sentToFirebase = async () => {
       try {
           console.log(piecesToSave);
           const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
-          const getTableFromLocalStorage = JSON.parse(localStorage.getItem('table'));
     
           const db = firebase.firestore();
           let docRef = await db.collection("game").add({
             name1: getNameFromLocalStorage,
-            pieces:piecesToSave
+            pieces: piecesToSave
           })
 
           docRefGamer = docRef.id;
           localStorage.setItem('gameId',docRefGamer);
           console.log('id.documento:', docRefGamer);
-          setIsSavedInFirebase(true)
-                    
+          setIsSavedInFirebase(true);
+          sentInvitation(docRefGamer);
+
       } catch (err) {
           console.log('failed');
       }
+    }
+
+    const sentInvitation = (docRefGamer) => {
+      //Se envia la petición de enviar por wsp pero falta agregar URL para entrar al juego
+      window.location.href = 'whatsapp://send?text=Puedes bañar a estos perritos más rápido que yo? Únete a mi juego ingresando esta clave en tu juego: ' + docRefGamer.toString() 
     }
   
   let piecesToSaveState = {piecesToSave,setPiecesToSave};  
@@ -75,10 +56,12 @@ function PlacingPieces() {
     <footer>
      <Button variant="outlined"
       onClick={() => sentToFirebase()}>
-          Guardar en Firebase
+        1. Guardar juego
       </Button>
-       <Button variant="outlined" disabled = {!isSavedInFirebase}>
-      <Link to="/Game">Jugar</Link>
+       <Button 
+       variant="outlined" 
+       disabled = {!isSavedInFirebase}>
+      <Link to="/Game">2. Jugar</Link>
       </Button>  
       </footer>
     </div>

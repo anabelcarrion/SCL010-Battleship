@@ -198,10 +198,11 @@ const CreateGameBoard = () => {
         }
            //colocando pieza en el tablero  
         newTable[x+i][y+j] = { state:true, x: x, y: y, piece:selectedPiece};
-        console.log (newTable);
+        console.log ('newTable', newTable);
       }
       }
     }
+  
     if(!removePiece){
       pieces[selectedPiece.name].isPlaced = true;
       addPieceToSave(selectedPiece, x, y);
