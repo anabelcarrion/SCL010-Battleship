@@ -12,7 +12,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import { PlacingPiecesContext } from '../Views/PlacingPieces';
 
 
-const GameBoard = () => {
+const GameBoradPlayer1 = () => {
 
   //importando contesto
   const {dataPlayer1, setdataPlayer1} = React.useContext(GameContext);
@@ -84,4 +84,4 @@ const GameBoard = () => {
   
 };
 
-export default GameBoard;
+export default GameBoradPlayer1;
