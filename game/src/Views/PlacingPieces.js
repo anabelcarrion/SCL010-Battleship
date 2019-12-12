@@ -43,11 +43,11 @@ function PlacingPieces() {
     <Link to="/StartGame"><Button variant="outlined">Volver</Button></Link>
     <h1>Coloca las perritos en el tablero de juego</h1>
     </nav>
-    <section id="placing-pieces"> 
+    <div id="placing-pieces"> 
      <PlacingPiecesContext.Provider value={piecesToSaveState}>
         <CreateGameBoard/>
      </PlacingPiecesContext.Provider>  
-    </section>
+    </div>
     <footer>
         <Button variant="outlined"
           onClick={() => sentToFirebase()}

@@ -216,12 +216,9 @@ const CreateGameBoard = () => {
   };
  
   return (
-    <div id='gameBoard'>
+    <React.Fragment>
+    <section id='gameBoard'>
       <div id='boardPlayer1'>
-       <div>
-          <GameBoardPaintContext.Provider value={gameBoardState}>
-            <ShowPieces/>
-          </GameBoardPaintContext.Provider>
           {/* <ToggleButton
           value="check"
           selected={isRotated}
@@ -251,8 +248,11 @@ const CreateGameBoard = () => {
             </TableBody>
           </Table>
         </Paper>
-      </div>
-    </div>
+    </section>
+            <GameBoardPaintContext.Provider value={gameBoardState}>
+            <ShowPieces/>
+        </GameBoardPaintContext.Provider>
+        </React.Fragment>
   );
 };
 
