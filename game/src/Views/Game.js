@@ -70,7 +70,7 @@ function Game() {
     <GameContext.Provider value={gameContext}>
       <GameBoradPlayer1/>
     </GameContext.Provider>
-    <Link to="/EndGame">terminar juego</Link>
+    <Link to="/EndGame">Terminar juego</Link>
     </div>
   );
   
