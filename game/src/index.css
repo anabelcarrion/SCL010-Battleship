@@ -80,7 +80,7 @@ input {
 }
 
 .MuiButton-root {
-  width: 160px !important;
+  width: auto !important;
   color: #000000de;
   background-color: white !important;
   margin: 10px !important;
@@ -140,4 +140,8 @@ footer {
   color: white;
   text-align: center;
   display: table-row;
+}
+
+i {
+  font-size: 20px;
 }
