@@ -38,17 +38,19 @@ function PlacingPieces() {
   let piecesToSaveState = {piecesToSave,setPiecesToSave};  
 
   return (
-    <div>
-     <h1>Coloca las perritos en el tablero de juego</h1>
-     <Link to="/StartGame">Volver</Link> 
+    <div id="outer-placing-pieces">
+    <nav><h1>Coloca las perritos en el tablero de juego</h1></nav>
+    <section id="placing-pieces">
+     <Link to="/StartGame"><Button variant="outlined">Volver</Button></Link> 
      <PlacingPiecesContext.Provider value={piecesToSaveState}>
         <CreateGameBoard/>
      </PlacingPiecesContext.Provider> 
-     <Button
+     <Button variant="outlined"
       onClick={() => sentToFirebase()}
       >
       <Link to="/Game">Jugar</Link>
       </Button>   
+    </section>
     </div>
   );
 }
