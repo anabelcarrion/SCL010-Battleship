@@ -35,12 +35,17 @@ const GameBoardPlayer1 = () => {
         for (let j=piece.y; j< piece.y + piece.sizeV; j++){
           table [i][j].state = true; 
         }
-      }  
-      
+      }     
     }
-
+    console.log(dataPlayer1)
+    for (let i = 0; i < dataPlayer1.checkedPositions.length; i++) {
+      let position = dataPlayer1.checkedPositions[i];
+      table [position.x][position.y].checked = true;
+    }
     return table;
   }
+
+
   const [tableState, setTableState] = useState(createTablePlayer1());
   
   const copyTable = (table) =>{
@@ -66,7 +71,11 @@ const GameBoardPlayer1 = () => {
                   {row.map(position => (
                     <TableCell
                       data={[position.x, position.y]}
-                      className={(tableState[position.x][position.y].state ? "occupiedCell" : "emptyCell")}
+                      className={
+                        (tableState[position.x][position.y].state ?
+                           "occupiedCell" :
+                              (tableState[position.x][position.y].checked ? "checkedCell" : "emptyCell"))                      
+                      }
                       onClick={() =>
                         console.log("clic")
                       }

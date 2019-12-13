@@ -45,8 +45,8 @@ function getPlayer2(opponentGameBoardId){
 function Game() {
 
   // hook
-  const [dataPlayer1, setdataPlayer1] = React.useState({pieces:[]});
-  const [dataPlayer2, setdataPlayer2] = React.useState({pieces:[]});
+  const [dataPlayer1, setdataPlayer1] = React.useState({pieces:[],checkedPositions:[]});
+  const [dataPlayer2, setdataPlayer2] = React.useState({pieces:[],checkedPositions:[]});
   const [isLoading, setIsLoading] = React.useState(false);
   const [isOpponentLoaded, setIsOpponentLoaded] = React.useState(false);
   const [opponentGameBoardId, setOpponentGameBoardId] = React.useState();
@@ -70,6 +70,7 @@ function Game() {
     getPlayer2(opponentGameBoardId)
     .then(player2 => {
       if (player2.name1) {
+        player2.id=opponentGameBoardId;
         setdataPlayer2(player2);
         setIsOpponentLoaded(true);
       }else{
@@ -82,7 +83,22 @@ function Game() {
       setIsOpponentLoaded(false);
     })
   }
-
+  
+  const updateGame=()=>{
+    setIsLoading(true);
+    setIsOpponentLoaded(false);
+    getPlayer1()
+    .then(player1 => {
+      setdataPlayer1(player1);
+      setIsLoading(false);
+    });
+    getPlayer2(opponentGameBoardId)
+    .then(player2 => {
+      player2.id=opponentGameBoardId;
+      setdataPlayer2(player2);
+      setIsOpponentLoaded(true);
+    })
+  }
   
   return isLoading ? <h1>Is loading</h1> : (
     <div>
@@ -92,6 +108,10 @@ function Game() {
         <GameBoardPlayer1/>
         </ContexPlayer1.Provider>
       </div>
+      <Button variant="outlined"
+          onClick={() => updateGame()}>
+            Actualizar
+        </Button>
       <div className="AreaJugador2">
         <h1>Jugador:{dataPlayer2.name1}</h1>
         <Input id="opponentGameBoardId"

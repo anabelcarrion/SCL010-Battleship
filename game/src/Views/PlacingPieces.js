@@ -17,11 +17,12 @@ function PlacingPieces() {
       try {
           console.log(piecesToSave);
           const getNameFromLocalStorage = JSON.parse(localStorage.getItem('name'));
-    
+          //guardando en firebase
           const db = firebase.firestore();
           let docRef = await db.collection("game").add({
             name1: getNameFromLocalStorage,
-            pieces: piecesToSave
+            pieces: piecesToSave,
+            checkedPositions: []
           })
 
           docRefGamer = docRef.id;

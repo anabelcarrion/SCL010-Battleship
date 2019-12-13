@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 //import { usePieceState } from './Pieces';
 import './GameBoard.css';
 import {ContexPlayer2} from '../Views/Game';
+import firebase from '../data/firebase'
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -11,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import { PlacingPiecesContext } from '../Views/PlacingPieces';
 
+let checkedPositions=[];
 
 const GameBoardPlayer2 = () => {
 
@@ -30,6 +32,12 @@ const GameBoardPlayer2 = () => {
       }
       table[h] = row;
     }
+
+    console.log(dataPlayer2)
+    for (let i = 0; i < dataPlayer2.checkedPositions.length; i++) {
+      let position = dataPlayer2.checkedPositions[i];
+      table [position.x][position.y].checked = true;
+    }
     
     return table;
   }
@@ -43,8 +51,14 @@ const GameBoardPlayer2 = () => {
      });
   }
 
+  
   const savePosition = (x,y) => {
-       
+    checkedPositions.push({x:x, y:y})
+    const db = firebase.firestore();
+    const data = db.collection('game');
+    data.doc(dataPlayer2.id).set({
+      checkedPositions:checkedPositions
+      }, { merge: true })   
   }
 
   const isPositionUccupied=(x,y,piece)=>{
