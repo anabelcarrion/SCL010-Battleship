@@ -56,12 +56,23 @@ const GameBoardPlayer1 = () => {
      });
   }
 
+  const positionColor = (position) => {
+    if(position.state){
+      if(position.checked){
+        return "cleanDog";
+      }else{
+        return "dirtyDog";
+      }
+    }else{
+      if (position.checked){
+        return "water";
+      }
+    }
+    return "emptyCell";
+  }
+
     return (
       <div id='gameBoard'>
-        <Input
-        type="text"
-        placeholder="Ingresa el código de tu invitado">
-        </Input>
         <Paper>
           <Table id='boardPlayer1'>
             <TableBody>
@@ -70,11 +81,7 @@ const GameBoardPlayer1 = () => {
                   {row.map(position => (
                     <TableCell
                       data={[position.x, position.y]}
-                      className={
-                        (tableState[position.x][position.y].state ?
-                           "occupiedCell" :
-                              (tableState[position.x][position.y].checked ? "checkedCell" : "emptyCell"))                      
-                      }
+                      className={positionColor(position)}
                       onClick={() =>
                         console.log("clic")
                       }

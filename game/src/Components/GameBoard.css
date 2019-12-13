@@ -11,6 +11,18 @@
   background-color:#b64e4e;
 }
 
+.cleanDog{
+  background-color:#f8f52a;
+}
+
+.dirtyDog{
+  background-color:#6e3a18;
+}
+
+.water{
+  background-color:#19c4e2;
+}
+
 .emptyCell{
   background-color:#ffffff;
   border: 1px solid black;
@@ -22,7 +34,7 @@
 }
 
 .MuiTableCell-root {
-  padding: 10px !important;
+  padding: 20px !important;
   border: 1px solid black;
   display: flex;
   justify-content: center;

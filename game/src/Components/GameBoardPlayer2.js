@@ -12,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 
 
 let checkedPositions=[];
+let foundPieces=0;
 
 const GameBoardPlayer2 = () => {
 
@@ -38,15 +39,16 @@ const GameBoardPlayer2 = () => {
     }
     
     
-    //llenar la tabla
+    
     for (let index = 0; index < dataPlayer2.pieces.length; index++) {
       let piece = dataPlayer2.pieces[index];
       for (let i=piece.x; i< piece.x + piece.sizeH; i++){
         for (let j=piece.y; j< piece.y + piece.sizeV; j++){
-          table [i][j].state = true; 
+          if(table [i][j].checked){
+            table [i][j].state = true; 
+          }          
         }
-      }  
-      
+      }     
     }
     return table;
   }
@@ -74,18 +76,32 @@ const GameBoardPlayer2 = () => {
     return x >= piece.x && x < piece.x + piece.sizeH 
       && y >= piece.y && y < piece.y + piece.sizeV 
   }
+
+  const addFoundPiece = () =>{
+    foundPieces++;
+    const db = firebase.firestore();
+    const data = db.collection('game');
+    data.doc(dataPlayer2.id).set({
+      foundPieces:foundPieces
+      }, { merge: true })   
+  }
   
-  const checkPosition=(x, y)=>{
+  const checkPosition=(position)=>{
     let table=copyTable(tableState);
     let pieceFound = false;
+    let x = position.x;
+    let y = position.y;
     for (let index = 0; index < dataPlayer2.pieces.length; index++){
       let piece= dataPlayer2.pieces[index];
-      if(isPositionUccupied(x,y,piece)){
+      if(isPositionUccupied(x,y,piece) && !(position.state&&position.checked)){
         alert("hay una pieza");
+        addFoundPiece()
         pieceFound = true;
         for (let i=piece.x; i< piece.x + piece.sizeH; i++){
           for (let j=piece.y; j< piece.y + piece.sizeV; j++){
-            table [i][j].state = true; 
+            table [i][j].state = true;
+            table [i][j].checked = true;
+            savePosition(i,j);
           }
         }
       }
@@ -95,6 +111,21 @@ const GameBoardPlayer2 = () => {
     }
     savePosition(x,y);
     setTableState(table)
+  }
+
+  const positionColor = (position) => {
+    if(position.state){
+      if(position.checked){
+        return "cleanDog";
+      }else{
+        return "dirtyDog";
+      }
+    }else{
+      if (position.checked){
+        return "water";
+      }
+    }
+    return "emptyCell";
   }
 
     return (
@@ -107,13 +138,9 @@ const GameBoardPlayer2 = () => {
                   {row.map(position => (
                     <TableCell
                       data={[position.x, position.y]}
-                      className={
-                        (tableState[position.x][position.y].state ?
-                           "occupiedCell" :
-                              (tableState[position.x][position.y].checked ? "checkedCell" : "emptyCell"))                      
-                      }
+                      className={positionColor(position)}
                       onClick={() =>
-                       checkPosition(position.x, position.y)
+                       checkPosition(position)
                       }
                     >
                     </TableCell>

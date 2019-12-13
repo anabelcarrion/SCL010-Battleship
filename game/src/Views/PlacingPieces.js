@@ -22,7 +22,8 @@ function PlacingPieces() {
           let docRef = await db.collection("game").add({
             name1: getNameFromLocalStorage,
             pieces: piecesToSave,
-            checkedPositions: []
+            checkedPositions: [],
+            foundPieces: 0  
           })
 
           docRefGamer = docRef.id;
@@ -57,13 +58,11 @@ function PlacingPieces() {
     <footer>
      <Button variant="outlined"
       onClick={() => sentToFirebase()}>
-        1. Guardar juego
-      </Button>
-       <Button 
+        1.Guardar Tablero
+      </Button>    
+      <Link to="/Game"><Button 
        variant="outlined" 
-       disabled = {!isSavedInFirebase}>
-      <Link to="/Game">2. Jugar</Link>
-      </Button>  
+       disabled = {!isSavedInFirebase}>2.Jugar</Button></Link>
       </footer>
     </div>
   );

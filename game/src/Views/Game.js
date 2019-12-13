@@ -44,8 +44,8 @@ function getPlayer2(opponentGameBoardId){
 function Game() {
 
   // hook
-  const [dataPlayer1, setdataPlayer1] = React.useState({pieces:[],checkedPositions:[]});
-  const [dataPlayer2, setdataPlayer2] = React.useState({pieces:[],checkedPositions:[]});
+  const [dataPlayer1, setdataPlayer1] = React.useState({pieces:[],checkedPositions:[],foundPieces:0});
+  const [dataPlayer2, setdataPlayer2] = React.useState({pieces:[],checkedPositions:[], foundPieces:0});
   const [isLoading, setIsLoading] = React.useState(false);
   const [isOpponentLoaded, setIsOpponentLoaded] = React.useState(false);
   const [opponentGameBoardId, setOpponentGameBoardId] = React.useState();
@@ -63,7 +63,7 @@ function Game() {
       setdataPlayer1(player1);
       setIsLoading(false);
     })
-  },[dataPlayer2]);
+  },[]);
 
   const showPlayer2=()=>{
     getPlayer2(opponentGameBoardId)
@@ -98,37 +98,54 @@ function Game() {
       setIsOpponentLoaded(true);
     })
   }
+
+  const showWinner = () => {
+    if(dataPlayer1.foundPieces==7){
+      return "El ganador es " + dataPlayer2.name1;
+    }
+    if(dataPlayer2.foundPieces==7){
+      return "El ganador es " + dataPlayer1.name1;
+    }
+    return "none";
+  }
   
-  return isLoading ? <h1>Is loading</h1> : (
+  return isLoading ? <h1>Cargando Juego ...</h1> : (
+    showWinner() != "none" ? 
+    <div>
+      {showWinner()}
+      <Link to="/EndGame">Terminar juego</Link>
+    </div>
+    : (
     <div>
       <div className="AreaJugador1">
-        <h1>Jugador:{dataPlayer1.name1}</h1>
+      <h2>Jugador:{dataPlayer1.name1}</h2>
+      <h3> A bañado {dataPlayer2.foundPieces} de 7 perritos</h3>
         <ContexPlayer1.Provider value={ContexPlayer1State}>
         <GameBoardPlayer1/>
         </ContexPlayer1.Provider>
       </div>
       <Button variant="outlined"
           onClick={() => updateGame()}>
-            Actualizar
+            Perrito Bañado
         </Button>
       <div className="AreaJugador2">
-        <h1>Jugador:{dataPlayer2.name1}</h1>
-        <Input id="opponentGameBoardId"
+      <h2>Jugador:{dataPlayer2.name1}</h2>
+      <h3>A bañado {dataPlayer1.foundPieces} de 7 perritos</h3>
+      <Input id="opponentGameBoardId"
           type="text" 
-          placeholder="Ingrese codigo de oponente" 
+          placeholder="Ingrese codigo" 
           onChange={(event)=>setOpponentGameBoardId(event.target.value)}
          ></Input>
         <Button variant="outlined"
           onClick={() => showPlayer2()}>
             Cargar Oponente
         </Button>
-        { !isOpponentLoaded ? <h1>cargando oponente :)</h1> :( <ContexPlayer2.Provider value={ContexPlayer2State}>
+        { !isOpponentLoaded ? <h1>cargando oponente ...</h1> :( <ContexPlayer2.Provider value={ContexPlayer2State}>
       <GameBoardPlayer2/>
     </ContexPlayer2.Provider>)}
     </div>
-    <Link to="/EndGame">terminar juego</Link>
     </div>
-  );
+  ));
 }
 
 export default Game;

@@ -14,6 +14,7 @@ import { PlacingPiecesContext } from '../Views/PlacingPieces';
 export const GameBoardPaintContext=React.createContext();
 //creando context para piezas
 export const PiecesContext=React.createContext();
+
 // crear los objetos con los valores que tendrán las piezas del juego
 let pieces={
   dog1:{
@@ -77,7 +78,8 @@ let pieces={
 
 // tablero
 const CreateGameBoard = () => {
-
+  
+  //Inicializando pieza
   let emptyPiece = {
     name: '',
     img:'',
@@ -140,7 +142,7 @@ const CreateGameBoard = () => {
     setPiecesToSave(piecesToSave.map(x => x));
   }
 
-
+  //copiando la tabla
   const copyTable = (table) =>{
     return table.map( x => {
       return x.map( y => {
