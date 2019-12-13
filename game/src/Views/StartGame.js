@@ -11,8 +11,6 @@ const StartGame  = () => {
   //Guardando el nombre ingresado en localstorage y enviando mensaje de whatsapp
   function sentToFirebase(userName) {
     localStorage.setItem('name', JSON.stringify(userName));
-    //Se envia la petición de enviar por wsp pero falta agregar URL para entrar al juego
-    window.location.href = 'whatsapp://send?text=Puedes bañar a estos perritos más rápido que yo? Únete a mi juego'
   }
 
   return (
