@@ -188,20 +188,21 @@ const CreateGameBoard = () => {
 
           //validando que la pieza no se ponga en los bordes del tablero
         if((x+i)>=newTable.length || (y+j)>=newTable.length){
-          alert("no hay espacio soficiente para colocar esta pieza");
+          alert("no hay espacio suficiente para colocar esta pieza");
           return tableState;
         }
         //validando que la pieza no se ponga sobre otra pieza
         if(tableState[x+i][y+j].state){
-          alert("no se puede incertar la pieza en donde ya existe una pieza");
+          alert("no se puede insertar la pieza en donde ya existe una pieza");
         return tableState;
         }
            //colocando pieza en el tablero  
         newTable[x+i][y+j] = { state:true, x: x, y: y, piece:selectedPiece};
-        console.log (newTable);
+        console.log ('newTable', newTable);
       }
       }
     }
+  
     if(!removePiece){
       pieces[selectedPiece.name].isPlaced = true;
       addPieceToSave(selectedPiece, x, y);

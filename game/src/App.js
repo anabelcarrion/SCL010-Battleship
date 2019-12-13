@@ -21,10 +21,10 @@ const App=()=> {
             <Route
               path="/StartGame"
               component={StartGame} />
-            <Route
+              <Route
               path="/Game"
               component={Game} />
-               <Route
+              <Route
               path="/PlacingPieces"
               component={PlacingPieces} />
                <Route
