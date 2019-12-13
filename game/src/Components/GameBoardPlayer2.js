@@ -26,23 +26,11 @@ const GameBoardPlayer2 = () => {
     for (let h = 0; h < tableHeight; h++) {
       let row = [];
       for (let w = 0; w < tableWidth; w++) {
-       row[w] = { state:false, x: h, y: w};
+       row[w] = { state:false, x: h, y: w, checked:false};
       }
       table[h] = row;
     }
     
-    //llenar la tabla
-    for (let index = 0; index < dataPlayer2.pieces.length; index++) {
-      let piece = dataPlayer2.pieces[index];
-      for (let i=piece.x; i< piece.x + piece.sizeH; i++){
-        for (let j=piece.y; j< piece.y + piece.sizeV; j++){
-          table [i][j].state = true; 
-        }
-      }  
-      
-    }
-
-
     return table;
   }
   const [tableState, setTableState] = useState(createTablePlayer1());
@@ -55,6 +43,36 @@ const GameBoardPlayer2 = () => {
      });
   }
 
+  const savePosition = (x,y) => {
+       
+  }
+
+  const isPositionUccupied=(x,y,piece)=>{
+    return x >= piece.x && x < piece.x + piece.sizeH 
+      && y >= piece.y && y < piece.y + piece.sizeV 
+  }
+  
+  const checkPosition=(x, y)=>{
+    let table=copyTable(tableState);
+    let pieceFound = false;
+    for (let index = 0; index < dataPlayer2.pieces.length; index++){
+      let piece= dataPlayer2.pieces[index];
+      if(isPositionUccupied(x,y,piece)){
+        alert("hay una pieza");
+        pieceFound = true;
+        for (let i=piece.x; i< piece.x + piece.sizeH; i++){
+          for (let j=piece.y; j< piece.y + piece.sizeV; j++){
+            table [i][j].state = true; 
+          }
+        }
+      }
+    }
+    if (!pieceFound) {
+      table [x][y].checked = true;
+    }
+    savePosition(x,y);
+    setTableState(table)
+  }
 
     return (
       <div id='gameBoard'>
@@ -66,9 +84,13 @@ const GameBoardPlayer2 = () => {
                   {row.map(position => (
                     <TableCell
                       data={[position.x, position.y]}
-                      className={(tableState[position.x][position.y].state ? "occupiedCell" : "emptyCell")}
+                      className={
+                        (tableState[position.x][position.y].state ?
+                           "occupiedCell" :
+                              (tableState[position.x][position.y].checked ? "checkedCell" : "emptyCell"))                      
+                      }
                       onClick={() =>
-                        console.log("clic")
+                       checkPosition(position.x, position.y)
                       }
                     >
                     </TableCell>

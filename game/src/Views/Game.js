@@ -64,14 +64,14 @@ function Game() {
       setdataPlayer1(player1);
       setIsLoading(false);
     })
-  },[]);
+  },[dataPlayer2]);
 
   const showPlayer2=()=>{
     getPlayer2(opponentGameBoardId)
     .then(player2 => {
       if (player2.name1) {
         setdataPlayer2(player2);
-       setIsOpponentLoaded(true);
+        setIsOpponentLoaded(true);
       }else{
         alert("codigo del oponente incorrecto");
       }
@@ -81,11 +81,6 @@ function Game() {
       alert("codigo del oponente incorrecto");
       setIsOpponentLoaded(false);
     })
-
-    return !isOpponentLoaded ? <h1>Cargando :)</h1> :(
-    <ContexPlayer2.Provider value={ContexPlayer2State}>
-      <GameBoardPlayer2/>
-    </ContexPlayer2.Provider>)
   }
 
   
@@ -108,7 +103,9 @@ function Game() {
           onClick={() => showPlayer2()}>
             Cargar Oponente
         </Button>
-        { !isOpponentLoaded ? <h1>cargando oponente :)</h1> :( showPlayer2())}
+        { !isOpponentLoaded ? <h1>cargando oponente :)</h1> :( <ContexPlayer2.Provider value={ContexPlayer2State}>
+      <GameBoardPlayer2/>
+    </ContexPlayer2.Provider>)}
     </div>
     <Link to="/EndGame">terminar juego</Link>
     </div>

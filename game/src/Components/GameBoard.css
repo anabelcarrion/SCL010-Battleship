@@ -7,6 +7,10 @@
   background-color:#999999;
 }
 
+.checkedCell{
+  background-color:#b64e4e;
+}
+
 .emptyCell{
   background-color:#ffffff;
   border: 1px solid black;
