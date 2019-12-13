@@ -36,9 +36,7 @@ const GameBoradPlayer1 = () => {
           table [i][j].state = true; 
         }
       }  
-      
     }
-
     return table;
   }
   const [tableState, setTableState] = useState(createTablePlayer1());
@@ -50,7 +48,6 @@ const GameBoradPlayer1 = () => {
        })
      });
   }
-
 
     return (
       <div id='gameBoard'>

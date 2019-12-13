@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-//import { usePieceState } from './Pieces';
-import './GameBoard.css';
 import {GameContext} from '../Views/Game';
+import './GameBoard.css';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import { PlacingPiecesContext } from '../Views/PlacingPieces';
-
 
 const GameBoradPlayer2 = () => {
 
@@ -41,8 +37,6 @@ const GameBoradPlayer2 = () => {
       }  
       
     }
-
-
     return table;
   }
   const [tableState, setTableState] = useState(createTablePlayer1());
@@ -54,7 +48,6 @@ const GameBoradPlayer2 = () => {
        })
      });
   }
-
 
     return (
       <div id='gameBoard'>

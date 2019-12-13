@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import GameBoradPlayer1 from '../Components/GameBoradPlayer1';
 import firebase from '../data/firebase'
-import { rejects } from 'assert';
 
 //creando context para piezas
 export const GameContext=React.createContext();
@@ -73,7 +72,6 @@ function Game() {
     <Link to="/EndGame">Terminar juego</Link>
     </div>
   );
-  
 }
 
 export default Game;

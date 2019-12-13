@@ -2,14 +2,12 @@ import React, { useState, useContext } from 'react';
 //import { usePieceState } from './Pieces';
 import './GameBoard.css';
 import ShowPieces from './Pieces';
-import firebase from '../data/firebase'
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import ToggleButton from '@material-ui/lab/ToggleButton';
 import { PlacingPiecesContext } from '../Views/PlacingPieces';
 
 //creando context para GameBorad
@@ -220,13 +218,6 @@ const CreateGameBoard = () => {
     <React.Fragment>
     <section id='gameBoard'>
       <div id='boardPlayer1'>
-          {/* <ToggleButton
-          value="check"
-          selected={isRotated}
-           onChange={() => {
-            setIsRotated(!isRotated);
-          }}>Rotar
-        </ToggleButton> */}
         </div>
         <Paper>
           <Table id='boardPlayer1'>
