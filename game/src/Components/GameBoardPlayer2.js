@@ -9,8 +9,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import { PlacingPiecesContext } from '../Views/PlacingPieces';
+
 
 let checkedPositions=[];
 
@@ -32,13 +31,23 @@ const GameBoardPlayer2 = () => {
       }
       table[h] = row;
     }
-
     console.log(dataPlayer2)
     for (let i = 0; i < dataPlayer2.checkedPositions.length; i++) {
       let position = dataPlayer2.checkedPositions[i];
       table [position.x][position.y].checked = true;
     }
     
+    
+    //llenar la tabla
+    for (let index = 0; index < dataPlayer2.pieces.length; index++) {
+      let piece = dataPlayer2.pieces[index];
+      for (let i=piece.x; i< piece.x + piece.sizeH; i++){
+        for (let j=piece.y; j< piece.y + piece.sizeV; j++){
+          table [i][j].state = true; 
+        }
+      }  
+      
+    }
     return table;
   }
   const [tableState, setTableState] = useState(createTablePlayer1());

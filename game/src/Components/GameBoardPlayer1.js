@@ -56,7 +56,6 @@ const GameBoardPlayer1 = () => {
      });
   }
 
-
     return (
       <div id='gameBoard'>
         <Input
