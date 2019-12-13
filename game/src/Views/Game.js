@@ -4,7 +4,6 @@ import { Button, Input } from '@material-ui/core';
 import GameBoardPlayer1 from '../Components/GameBoardPlayer1';
 import GameBoardPlayer2 from '../Components/GameBoardPlayer2';
 import firebase from '../data/firebase'
-import { rejects } from 'assert';
 
 //creando context 
 export const ContexPlayer1=React.createContext();
@@ -113,7 +112,6 @@ function Game() {
     <Link to="/EndGame">terminar juego</Link>
     </div>
   );
-  
 }
 
 export default Game;

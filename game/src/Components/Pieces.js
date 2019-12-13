@@ -1,12 +1,11 @@
-import React, { Component, useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import './GameBoard.css';
 import {GameBoardPaintContext} from './CreateGameBoard';
-import Button from '@material-ui/core/Button';
-
+import { Button } from '@material-ui/core';
 
 // asignar valores a las piezas
 const ShowPieces = () => {
-  const {selectedPiece,setSelectedPiece,pieces} = useContext(GameBoardPaintContext);
+  const {selectedPiece, setSelectedPiece,pieces} = useContext(GameBoardPaintContext);
   return (
     <section id="dog-btns">
        <Button disabled={pieces.dog1.isPlaced} onClick={() => {
