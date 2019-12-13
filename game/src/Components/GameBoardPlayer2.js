@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import {GameContext} from '../Views/Game';
+//import { usePieceState } from './Pieces';
 import './GameBoard.css';
+import {ContexPlayer2} from '../Views/Game';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,10 +9,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-const GameBoradPlayer2 = () => {
+const GameBoardPlayer2 = () => {
 
   //importando contesto
-  const {dataPlayer2, setdataPlayer2} = React.useContext(GameContext);
+  const {dataPlayer2, setdataPlayer2} = React.useContext(ContexPlayer2);
   // creando la tabla
   const createTablePlayer1=()=>{
     // fijar tamaño de tabla
@@ -77,4 +78,4 @@ const GameBoradPlayer2 = () => {
   
 };
 
-export default GameBoradPlayer2;
+export default GameBoardPlayer2;
